@@ -5,28 +5,21 @@ import { motion, useInView } from "framer-motion";
 import { Calendar, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import Timeline from "@/app/messages/sections/TimelineSection.json";
+import { useLanguage } from "@/context/LanguageContext";
+import type {
+  TimelineJson,
+  TimelineItem,
+} from "@/types/sections/TimelineSection";
 
 export default function TimelineSection() {
+  const { language } = useLanguage();
+  const content = (Timeline as TimelineJson)[language];
+
+  const timelineItems: TimelineItem[] = content.items;
+
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
-
-  const timelineItems = [
-    {
-      date: "DEZ 2003",
-      title: "Graduação em Engenharia da Computação",
-      description: "Universidade",
-    },
-    {
-      date: "JUL 2009",
-      title: "Mestrado em Processamento de Imagens",
-      description: "Universidade",
-    },
-    {
-      date: "JUL 2017",
-      title: "Doutorado em Segurança Computacional",
-      description: "Universidade",
-    },
-  ];
 
   return (
     <section className="w-full py-12 md:py-24 lg:py-32 bg-blue-50">
@@ -40,11 +33,10 @@ export default function TimelineSection() {
         >
           <div className="space-y-2">
             <h2 className="text-xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              Jornada de Conquistas Acadêmicas
+              {content.sectionTitle}
             </h2>
             <p className="text-sm mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Conheça a trajetória acadêmica que construiu a base do
-              conhecimento compartilhado hoje.
+              {content.sectionDescription}
             </p>
           </div>
         </motion.div>
@@ -98,7 +90,7 @@ export default function TimelineSection() {
             >
               <Link href="http://lattes.cnpq.br/6966615403860909">
                 <Button variant="outline">
-                  Acesse meu currículo
+                  {content.button}
                   <Download className="ml-2 h-4 w-4" />
                 </Button>
               </Link>

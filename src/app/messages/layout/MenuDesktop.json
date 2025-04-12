@@ -1,0 +1,22 @@
+{
+  "pt": {
+    "menu": [
+      { "label": "Sobre", "href": "/#sobre" },
+      { "label": "Projetos", "href": "/#projetos" },
+      { "label": "Cursos", "href": "/#cursos" },
+      { "label": "Equipe", "href": "/#equipe" },
+      { "label": "Contato", "href": "mailto:rodolfo.barriviera@ifpr.edu.br" }
+    ],
+    "cv": "Currículo"
+  },
+  "en": {
+    "menu": [
+      { "label": "About", "href": "/#sobre" },
+      { "label": "Projects", "href": "/#projetos" },
+      { "label": "Courses", "href": "/#cursos" },
+      { "label": "Team", "href": "/#equipe" },
+      { "label": "Contact", "href": "mailto:rodolfo.barriviera@ifpr.edu.br" }
+    ],
+    "cv": "Resume"
+  }
+}

@@ -1,7 +1,13 @@
 import Link from "next/link";
 import { Facebook, Instagram, Linkedin } from "lucide-react";
+import footer from "@/app/messages/layout/Footer.json";
+import { useLanguage } from "@/context/LanguageContext";
+import type { FooterJson } from "@/types/layout/Footer";
 
 export default function Footer() {
+  const { language } = useLanguage();
+  const content = (footer as FooterJson)[language];
+
   return (
     <footer
       id="contato"
@@ -10,9 +16,9 @@ export default function Footer() {
       <div className="container max-w-[1200px] mx-auto px-4 md:px-6">
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
           <div className="space-y-4">
-            <h3 className="text-lg font-bold">Prof. Rodolfo Barriviera</h3>
+            <h3 className="text-lg font-bold">{content.professor.name}</h3>
             <p className="text-sm text-muted-foreground">
-              Ajudando as pessoas a prosperarem através da tecnologia.
+              {content.professor.description}
             </p>
             <div className="flex space-x-4">
               <Link
@@ -39,14 +45,14 @@ export default function Footer() {
             </div>
           </div>
           <div className="space-y-4">
-            <h3 className="text-lg font-bold">Links Rápidos</h3>
+            <h3 className="text-lg font-bold">{content.quickLinks[0]}</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link
                   href="/#sobre"
                   className="text-muted-foreground hover:text-foreground"
                 >
-                  Sobre
+                  {content.quickLinks[1]}
                 </Link>
               </li>
               <li>
@@ -54,7 +60,7 @@ export default function Footer() {
                   href="/#projetos"
                   className="text-muted-foreground hover:text-foreground"
                 >
-                  Projetos
+                  {content.quickLinks[2]}
                 </Link>
               </li>
               <li>
@@ -62,7 +68,7 @@ export default function Footer() {
                   href="/#cursos"
                   className="text-muted-foreground hover:text-foreground"
                 >
-                  Cursos
+                  {content.quickLinks[3]}
                 </Link>
               </li>
               <li>
@@ -70,18 +76,18 @@ export default function Footer() {
                   href="/#equipe"
                   className="text-muted-foreground hover:text-foreground"
                 >
-                  Equipe
+                  {content.quickLinks[4]}
                 </Link>
               </li>
             </ul>
           </div>
           <div className="space-y-4">
-            <h3 className="text-lg font-bold">Disciplinas</h3>
+            <h3 className="text-lg font-bold">{content.disciplines[0]}</h3>
             <ul className="space-y-2 text-sm">
-              <li>Sistemas Operacionais</li>
-              <li>Arquitetura de Computadores</li>
-              <li>Redes de Computadores</li>
-              <li>Segurança de Sistemas</li>
+              <li>{content.disciplines[1]}</li>
+              <li>{content.disciplines[2]}</li>
+              <li>{content.disciplines[3]}</li>
+              <li>{content.disciplines[4]}</li>
             </ul>
           </div>
           <div className="space-y-4">
@@ -92,7 +98,7 @@ export default function Footer() {
                   href="/termos-de-uso"
                   className="text-muted-foreground hover:text-foreground"
                 >
-                  Termos de uso
+                  {content.legal[0]}
                 </Link>
               </li>
               <li>
@@ -100,7 +106,7 @@ export default function Footer() {
                   href="/politicas-de-privacidade"
                   className="text-muted-foreground hover:text-foreground"
                 >
-                  Políticas de privacidade
+                  {content.legal[1]}
                 </Link>
               </li>
             </ul>
@@ -108,8 +114,8 @@ export default function Footer() {
         </div>
         <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
           <p>
-            &copy; {new Date().getFullYear()} RODOLFO BARRIVIERA. Todos os
-            direitos reservados.
+            &copy; {new Date().getFullYear()} RODOLFO BARRIVIERA.{" "}
+            {content.copyright}
           </p>
         </div>
       </div>

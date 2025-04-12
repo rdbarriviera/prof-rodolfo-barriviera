@@ -3,14 +3,16 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Download } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/context/LanguageContext";
+import menuContent from "@/app/messages/layout/MenuDesktop.json";
+
+import { MenuTranslations } from "@/types/layout/MenuDesktop";
 
 const DesktopMenu = () => {
-  const menuItems = [
-    { label: "Sobre", href: "/#sobre" },
-    { label: "Projetos", href: "/#projetos" },
-    { label: "Cursos", href: "/#cursos" },
-    { label: "Equipe", href: "/#equipe" },
-    { label: "Contato", href: "mailto:rodolfo.barriviera@ifpr.edu.br" },
+  const { language, toggleLanguage } = useLanguage();
+  const content = (menuContent as MenuTranslations)[
+    language as keyof MenuTranslations
   ];
 
   return (
@@ -29,7 +31,7 @@ const DesktopMenu = () => {
 
         {/* Menu Links */}
         <nav className="hidden md:flex space-x-8">
-          {menuItems.map((item, index) => (
+          {content.menu.map((item, index) => (
             <motion.div
               key={index}
               className="relative group"
@@ -46,8 +48,6 @@ const DesktopMenu = () => {
               >
                 {item.label}
               </a>
-
-              {/* Barra deslizante abaixo do texto ao passar o mouse */}
               <motion.div
                 className="absolute left-0 bottom-0 h-0.5 bg-blue-300 w-full scale-x-0 group-hover:scale-x-100 transition-transform origin-left"
                 layoutId="underline"
@@ -56,8 +56,9 @@ const DesktopMenu = () => {
             </motion.div>
           ))}
         </nav>
+
         <motion.div
-          className="flex justify-center items-center"
+          className="flex justify-center items-center flex-row gap-2"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0, transition: { delay: 0.5 } }}
         >
@@ -66,11 +67,18 @@ const DesktopMenu = () => {
             target="_blank"
             className="pl-4"
           >
-            <button className=" flex flex-row gap-2 items-center bg-blue-400 text-white font-bold px-6 py-2 rounded-xl cursor-pointer hover:bg-black transition duration-300">
-              Currículo
+            <button className="flex flex-row gap-2 items-center bg-blue-400 text-white font-bold px-6 py-2 rounded-xl cursor-pointer hover:bg-black transition duration-300">
+              {content.cv}
               <Download size={16} />
             </button>
           </a>
+          <Button
+            onClick={toggleLanguage}
+            variant="outline"
+            className="text-black rounded-xl h-10"
+          >
+            {language === "pt" ? "🇧🇷 PT" : "🇺🇸 EN"}
+          </Button>
         </motion.div>
       </div>
     </header>

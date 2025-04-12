@@ -1,0 +1,40 @@
+{
+  "pt": {
+    "cta": {
+      "title": "Me acompanhe nas redes sociais",
+      "buttons": [
+        {
+          "platform": "Instagram",
+          "buttonText": "Instagram"
+        },
+        {
+          "platform": "Linkedin",
+          "buttonText": "Linkedin"
+        },
+        {
+          "platform": "Facebook",
+          "buttonText": "Facebook"
+        }
+      ]
+    }
+  },
+  "en": {
+    "cta": {
+      "title": "Follow me on social media",
+      "buttons": [
+        {
+          "platform": "Instagram",
+          "buttonText": "Instagram"
+        },
+        {
+          "platform": "Linkedin",
+          "buttonText": "Linkedin"
+        },
+        {
+          "platform": "Facebook",
+          "buttonText": "Facebook"
+        }
+      ]
+    }
+  }
+}

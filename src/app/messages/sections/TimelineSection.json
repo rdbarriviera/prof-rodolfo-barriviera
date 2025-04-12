@@ -1,0 +1,46 @@
+{
+  "pt": {
+    "sectionTitle": "Jornada de Conquistas Acadêmicas",
+    "sectionDescription": "Conheça a trajetória acadêmica que construiu a base do conhecimento compartilhado hoje.",
+    "button": "Acesse meu currículo",
+    "items": [
+      {
+        "date": "DEZ 2003",
+        "title": "Graduação em Engenharia da Computação",
+        "description": "Universidade"
+      },
+      {
+        "date": "JUL 2009",
+        "title": "Mestrado em Processamento de Imagens",
+        "description": "Universidade"
+      },
+      {
+        "date": "JUL 2017",
+        "title": "Doutorado em Segurança Computacional",
+        "description": "Universidade"
+      }
+    ]
+  },
+  "en": {
+    "sectionTitle": "Journey of Academic Achievements",
+    "sectionDescription": "Discover the academic path that laid the foundation for the knowledge shared today.",
+    "button": "Access my curriculum",
+    "items": [
+      {
+        "date": "DEC 2003",
+        "title": "Bachelor's in Computer Engineering",
+        "description": "University"
+      },
+      {
+        "date": "JUL 2009",
+        "title": "Master's in Image Processing",
+        "description": "University"
+      },
+      {
+        "date": "JUL 2017",
+        "title": "PhD in Computer Security",
+        "description": "University"
+      }
+    ]
+  }
+}

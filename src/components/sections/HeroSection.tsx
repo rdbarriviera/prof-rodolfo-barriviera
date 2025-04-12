@@ -5,8 +5,13 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import hero from "@/app/messages/sections/HeroSection.json";
+import { useLanguage } from "@/context/LanguageContext";
+import type { HeroJson } from "@/types/sections/HeroSection";
 
 export default function HeroSection() {
+  const { language } = useLanguage();
+  const content = (hero as HeroJson)[language];
   return (
     <section className="relative overflow-hidden py-20 md:py-32 min-h-screen flex items-center">
       {/* Background with gradient overlay */}
@@ -45,7 +50,7 @@ export default function HeroSection() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2, duration: 0.5 }}
               >
-                AJUDO AS PESSOAS A PROSPERAREM ATRAVÉS DA TECNOLOGIA
+                {content.title}
               </motion.h1>
               <motion.p
                 className="text-center lg:text-start lg:max-w-[600px] text-muted-foreground md:text-xl drop-shadow-md"
@@ -53,9 +58,7 @@ export default function HeroSection() {
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.4, duration: 0.5 }}
               >
-                Há 28 anos, comecei a trilhar o meu caminho para hoje, como
-                Professor, cumprir o meu propósito de mudar a realidade da minha
-                família e de muitas pessoas.
+                {content.description}
               </motion.p>
             </div>
             <motion.div
@@ -66,7 +69,7 @@ export default function HeroSection() {
             >
               <Link href="/#sobre">
                 <Button size="lg" className="group">
-                  Conheça a minha história
+                  {content.cta}
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>

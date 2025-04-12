@@ -1,0 +1,62 @@
+{
+  "pt": {
+    "professor": {
+      "name": "Prof. Rodolfo Barriviera",
+      "description": "Ajudando as pessoas a prosperarem através da tecnologia.",
+      "social": [
+        {
+          "label": "Instagram",
+          "href": "https://www.instagram.com/prof.rodolfobarriviera/"
+        },
+        {
+          "label": "LinkedIn",
+          "href": "https://br.linkedin.com/in/profrodolfobarriviera"
+        },
+        {
+          "label": "Facebook",
+          "href": "https://www.facebook.com/profrodolfobarriviera/?locale=pt_BR"
+        }
+      ]
+    },
+    "quickLinks": ["Links Rápidos", "Sobre", "Projetos", "Cursos", "Equipe"],
+    "disciplines": [
+      "Disciplinas",
+      "Sistemas Operacionais",
+      "Arquitetura de Computadores",
+      "Redes de Computadores",
+      "Segurança de Sistemas"
+    ],
+    "legal": ["Termos de uso", "Políticas de privacidade"],
+    "copyright": "Todos os direitos reservados."
+  },
+  "en": {
+    "professor": {
+      "name": "Prof. Rodolfo Barriviera",
+      "description": "Helping people thrive through technology.",
+      "social": [
+        {
+          "label": "Instagram",
+          "href": "https://www.instagram.com/prof.rodolfobarriviera/"
+        },
+        {
+          "label": "LinkedIn",
+          "href": "https://br.linkedin.com/in/profrodolfobarriviera"
+        },
+        {
+          "label": "Facebook",
+          "href": "https://www.facebook.com/profrodolfobarriviera/?locale=pt_BR"
+        }
+      ]
+    },
+    "quickLinks": ["QuickLinks", "About", "Projects", "Courses", "Team"],
+    "disciplines": [
+      "Disciplines",
+      "Operating Systems",
+      "Computer Architecture",
+      "Computer Networks",
+      "System Security"
+    ],
+    "legal": ["Terms of Use", "Privacy Policy"],
+    "copyright": "All rights reserved."
+  }
+}

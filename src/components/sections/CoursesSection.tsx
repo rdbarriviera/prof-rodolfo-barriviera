@@ -15,6 +15,9 @@ import {
 } from "@/components/ui/card";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import Link from "next/link";
+import Course from "@/app/messages/sections/CoursesSection.json";
+import { useLanguage } from "@/context/LanguageContext";
+import type { CoursesJson, CourseItem } from "@/types/sections/CoursesSection";
 
 interface Course {
   title: string;
@@ -22,63 +25,18 @@ interface Course {
   status: string;
   image: string;
   href: string;
+  buttonText: string;
 }
 
 export default function CoursesSection() {
+  const { language } = useLanguage();
+  const content = (Course as CoursesJson)[language];
+
+  const courses: CourseItem[] = content.items;
+
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
   const isDesktop = useMediaQuery("(min-width: 768px)");
-
-  const courses = [
-    {
-      title: "Sistemas Operacionais",
-      description:
-        "Na disciplina de Sistemas Operacionais, os alunos aprendem os fundamentos e as principais funções dos sistemas operacionais, que são essenciais para o funcionamento dos computadores. O curso aborda o gerenciamento de processos, incluindo a criação, execução e sincronização de processos, bem como a comunicação entre eles.",
-      status: "Disponível",
-      image: "/courses/sistema.png?height=200&width=400",
-      href: "https://mega.nz/file/qZ4FgaIJ#do3aao6O1la3W6ahoIKnsZQC_QAtvWwBGvZjEwGUtg4",
-    },
-    {
-      title: "Arquitetura e Organização de Computadores",
-      description:
-        "Na disciplina de Arquitetura e Organização de Computadores, os alunos analisam a estrutura interna dos computadores, unidades de processamento, memória, barramentos e explorar os princípios de funcionamento e desempenho de sistemas computacionais.",
-      status: "Disponível",
-      image: "/courses/arquitetura.png?height=200&width=400",
-      href: "https://mega.nz/file/LYpmgRCB#YIi71TFla-0hahrAJ2M3hDsvhGMRBgbiNcxZhgEFBw8",
-    },
-    {
-      title: "Redes de Computadores",
-      description:
-        "Na disciplina de Redes de Computadores, os alunos aprendem os princípios fundamentais que regem a comunicação entre dispositivos em uma rede. O curso abrange a arquitetura de redes, incluindo modelos de referência como o OSI e o TCP/IP, que facilitam a compreensão das diferentes camadas de comunicação.",
-      status: "Disponível",
-      image: "/courses/redes.png?height=200&width=400",
-      href: "https://mega.nz/file/jBxkRCwC#WY-soEYLpbcOEe_b5iHTgHOB4ykA27oWQBz8c-mFp6w",
-    },
-    {
-      title: "Auditoria e Segurança de Sistemas",
-      description:
-        "Na disciplina de Auditoria e Segurança de Sistemas, os alunos aprendem a identificar vulnerabilidades, implementar controles de segurança e realizar auditorias em sistemas de informação, visando proteger dados e garantir a integridade das operações.",
-      status: "Disponível",
-      image: "/courses/auditoria.png?height=200&width=400",
-      href: "https://mega.nz/file/7UoBxJTQ#6nO1PaPBep5nBJW5ZD1zS-8TCk2lW23h9wyEH-5CGT8",
-    },
-    {
-      title: "Inteligência Artificial",
-      description:
-        "No curso de Inteligência Artificial, os alunos estudam os princípios e técnicas, como raciocínio lógico, aprendizado de máquina, que permitem a simulação de processos cognitivos por máquinas, abrangendo tópicos como Eng. de Prompt, Agentes, Clone de Cérebro e IA Aplicada.",
-      status: "EM BREVE",
-      image: "/courses/ia.png?height=200&width=400",
-      href: "",
-    },
-    {
-      title: "Criptomoedas",
-      description:
-        "No curso de Criptomoedas, os alunos aprendem os princípios e fundamentos das moedas digitais, com ênfase nas tecnologias que possibilitam sua operação, como blockchain, questões de segurança, Bitcoin, Ethereum, Carteiras e Análise de Projetos de Criptomoedas.",
-      status: "EM BREVE",
-      image: "/courses/criptomoedas.png?height=200&width=400",
-      href: "",
-    },
-  ];
 
   // Carousel state
   const [current, setCurrent] = useState(0);
@@ -119,12 +77,10 @@ export default function CoursesSection() {
         >
           <div className="space-y-2">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              Estude com o professor
+              {content.sectionTitle}
             </h2>
             <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Vamos caminhar juntos na busca pelo conhecimento, construindo uma
-              trajetória de aprendizado que nos levará a novas descobertas e
-              realizações.
+              {content.sectionDescription}
             </p>
           </div>
         </motion.div>
@@ -202,6 +158,9 @@ export default function CoursesSection() {
 }
 
 function CourseCard({ course }: { course: Course }) {
+  const { language } = useLanguage();
+  const content = (Course as CoursesJson)[language];
+
   return (
     <Card className="h-full overflow-hidden transition-all duration-300 hover:shadow-lg">
       <div className="relative">
@@ -216,7 +175,7 @@ function CourseCard({ course }: { course: Course }) {
           <div className="absolute bottom-4 left-4 text-white flex items-center gap-2">
             {course.status === "EM BREVE" && (
               <span className="inline-flex items-center rounded-full bg-primary px-2.5 py-0.5 text-xs font-semibold text-primary-foreground">
-                EM BREVE
+                {content.button.soon}
               </span>
             )}
           </div>
@@ -234,7 +193,9 @@ function CourseCard({ course }: { course: Course }) {
         <Link href={course.href} target="_blank">
           <Button variant="outline" size="sm" className="w-full group">
             <BookOpen className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
-            {course.status === "EM BREVE" ? "" : "Quero o material"}
+            {course.status === "EM BREVE"
+              ? course.buttonText
+              : course.buttonText}
           </Button>
         </Link>
       </CardFooter>

@@ -5,51 +5,18 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { Linkedin } from "lucide-react";
+import TeamMember from "@/app/messages/sections/TeamSection.json";
+import { useLanguage } from "@/context/LanguageContext";
+import type { TeamJson, TeamItem } from "@/types/sections/TeamSection";
 
 export default function TeamSection() {
+  const { language } = useLanguage();
+  const content = (TeamMember as TeamJson)[language];
+
+  const teamMembers: TeamItem[] = content.items;
+
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.2 });
-
-  const teamMembers = [
-    {
-      name: "LETÍCIA ITO",
-      role: "Análise e Desenvolvimento de Sistemas - 3° período",
-      image: "/team/leticia.png?height=200&width=200",
-      href: "https://www.linkedin.com/in/leticia-ito-3046591a2/",
-    },
-    {
-      name: "GABRIEL FERNANDES",
-      role: "Análise e Desenvolvimento de Sistemas - 5° período",
-      image: "/team/gabriel.png?height=200&width=200",
-      href: "https://www.linkedin.com/in/gabriel-fernandes-920421204/",
-    },
-
-    {
-      name: "MÁRCIA CRISTINA",
-      role: "Prof. do Instituto Federal do Paraná",
-      image: "/team/marcia.png?height=200&width=200",
-      href: "http://www.linkedin.com/in/marcia-cristina-dos-reis-5a78b4230",
-    },
-
-    {
-      name: "ADRIAN CAMPANA",
-      role: "Análise e Desenvolvimento de Sistemas - 5° período",
-      image: "/team/adrian.png?height=200&width=200",
-      href: "https://www.linkedin.com/in/adrian-campana/",
-    },
-    {
-      name: "MARCELO RIBEIRO",
-      role: "Análise e Desenvolvimento de Sistemas - 5° período",
-      image: "/team/marcelo.png?height=200&width=200",
-      href: "https://www.linkedin.com/in/marceloribeiromartins/",
-    },
-    {
-      name: "JÚLIO DE MELLO",
-      role: "Apoio Administrativo",
-      image: "/team/julio.png?height=200&width=200",
-      href: "",
-    },
-  ];
 
   return (
     <section
@@ -66,11 +33,10 @@ export default function TeamSection() {
         >
           <div className="space-y-2">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              EQUIPE
+              {content.sectionTitle}
             </h2>
             <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Conheça os profissionais que trabalham juntos para oferecer a
-              melhor experiência de aprendizado.
+              {content.sectionDescription}
             </p>
           </div>
         </motion.div>

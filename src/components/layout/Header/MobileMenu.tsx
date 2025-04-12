@@ -4,70 +4,33 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { Download, Menu, X } from "lucide-react";
+import { useLanguage } from "@/context/LanguageContext";
+import menuContent from "@/app/messages/layout/menuMobile.json";
+import { MenuTranslations } from "@/types/layout/MenuMobile";
+import { Button } from "@/components/ui/button";
 
 const MobileMenu = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { language, toggleLanguage } = useLanguage();
+
+  const content = menuContent[language as keyof MenuTranslations];
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  // Função para remover acentos
   const normalizeText = (text: string) => {
-    return text
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[\u0300-\u036f]/g, "");
+    return text.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "");
   };
 
   const handleNavigation = (id: string) => {
-    if (id === "Sobre") {
-      setIsOpen(false); // Fecha o menu imediatamente
-      window.location.href = "/#sobre";
-      return;
-    }
-    if (id === "/") {
-      setIsOpen(false); // Fecha o menu imediatamente
-      window.location.href = "/";
-      return;
-    }
-    if (id === "Projetos") {
-      setIsOpen(false); // Fecha o menu imediatamente
-      window.location.href = "/#projetos";
-      return;
-    }
-    if (id === "Cursos") {
-      setIsOpen(false); // Fecha o menu imediatamente
-      window.location.href = "/#cursos";
-      return;
-    }
-    if (id === "Equipe") {
-      setIsOpen(false); // Fecha o menu imediatamente
-      window.location.href = "/#equipe";
-      return;
-    }
-    if (id === "Contato") {
-      setIsOpen(false); // Fecha o menu imediatamente
-      window.location.href = "/#contato";
-      return;
-    }
-
+    setIsOpen(false);
     const normalizedId = normalizeText(id);
     const section = document.getElementById(normalizedId);
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
-
-      const observer = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) {
-            setIsOpen(false);
-            observer.disconnect();
-          }
-        },
-        { threshold: 0.7 }
-      );
-
-      observer.observe(section);
+    } else {
+      window.location.href = `/#${normalizedId}`;
     }
   };
 
@@ -128,7 +91,7 @@ const MobileMenu = () => {
             className="fixed inset-x-0 z-40 flex flex-col items-center justify-start h-full bg-white/90 backdrop-blur-lg shadow-lg py-16 px-8 mx-4 mt-20 rounded-3xl rounded-b-xl"
           >
             <motion.ul className="space-y-8 text-center">
-              {["Sobre", "Projetos", "Cursos", "Equipe"].map((item, index) => (
+              {content.items.map((item, index) => (
                 <motion.li
                   key={index}
                   custom={index}
@@ -136,9 +99,9 @@ const MobileMenu = () => {
                   animate="visible"
                   variants={itemVariants}
                   className="text-xl text-blue-900 hover:text-blue-800 cursor-pointer transition duration-300"
-                  onClick={() => handleNavigation(item)}
+                  onClick={() => handleNavigation(item.label)}
                 >
-                  {item}
+                  {item.label}
                 </motion.li>
               ))}
             </motion.ul>
@@ -146,7 +109,7 @@ const MobileMenu = () => {
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0, transition: { delay: 0.5 } }}
-              className="mt-8"
+              className="mt-8 flex flex-col gap-4"
             >
               <Link
                 href="http://lattes.cnpq.br/6966615403860909"
@@ -154,10 +117,17 @@ const MobileMenu = () => {
                 onClick={() => setIsOpen(false)}
               >
                 <button className="flex flex-row gap-2  items-center bg-blue-400 text-white px-6 py-3 rounded-xl hover:bg-blue-500 transition duration-300">
-                  Currículo
+                  {content.cv}
                   <Download size={16} />
                 </button>
               </Link>
+              <Button
+                onClick={toggleLanguage}
+                variant="outline"
+                className="text-black h-12 rounded-xl"
+              >
+                {language === "pt" ? "🇧🇷 PT" : "🇺🇸 EN"}
+              </Button>
             </motion.div>
           </motion.div>
         )}

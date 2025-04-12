@@ -5,8 +5,13 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import About from "@/app/messages/sections/AboutSection.json";
+import { useLanguage } from "@/context/LanguageContext";
+import type { AboutJson } from "@/types/sections/AboutSection";
 
 export default function AboutSection() {
+  const { language } = useLanguage();
+  const content = (About as AboutJson)[language];
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
 
@@ -25,12 +30,10 @@ export default function AboutSection() {
         >
           <div className="space-y-2">
             <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              O seu professor
+              {content.title}
             </h2>
             <p className="mx-auto max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
-              Sou o Prof. Dr. Rodolfo Barriviera, pai, autodidata, um sonhador e
-              realizador de sonhos, dedicado à trajetória acadêmica e
-              profissional centrada no aprendizado e ensino.
+              {content.intro}
             </p>
           </div>
         </motion.div>
@@ -57,45 +60,33 @@ export default function AboutSection() {
           >
             <div className="space-y-4">
               <p className="text-muted-foreground text-center lg:text-start">
-                Iniciei minha jornada graduando-me em Engenharia da Computação,
-                com pesquisa focada em Agentes Inteligentes. Avancei obtendo o
-                título de Mestre em Processamento de Imagens e concluí meu
-                Doutorado em Segurança Computacional.
+                {content.paragraphs[0]}
               </p>
               <p className="text-muted-foreground text-center lg:text-start">
-                Desde 2010, atuo como Professor Federal, compartilhando
-                conhecimento e inspirando novas gerações de estudantes. Também
-                exerço o papel de Gestor de Projetos de Tecnologia e Inovação,
-                liderando iniciativas cruciais para o progresso da área.
+                {content.paragraphs[1]}
               </p>
               <p className="text-muted-foreground text-center lg:text-start">
-                Tenho a satisfação de participar de projetos de impacto em
-                colaboração com parceiros como Huawei, onde contribuo com
-                capacitações em Cloud Services e 5G, e com a Agência Espacial
-                Brasileira (AEB) no projeto Desenvolvimento de Negócios com
-                Produtos e Serviços Espaciais.
+                {content.paragraphs[2]}
               </p>
               <p className="font-medium text-center lg:text-start">
-                Minha missão é ajudar as pessoas a prosperarem por meio do
-                aprendizado da tecnologia!
+                {content.paragraphs[3]}
               </p>
               <p className="text-muted-foreground text-center lg:text-start">
-                Atuo nas áreas de: Segurança Computacional, Inteligência
-                Artificial e Gestão de Projetos.
+                {content.paragraphs[4]}
               </p>
             </div>
             <div className="flex gap-4 justify-center lg:justify-start">
               <Link href="/#projetos">
-                <Button variant="outline">Projetos</Button>
+                <Button variant="outline">{content.buttons.projects}</Button>
               </Link>
               <Link href="mailto:rodolfo.barriviera@ifpr.edu.br">
-                <Button variant="outline">Contato</Button>
+                <Button variant="outline">{content.buttons.contact}</Button>
               </Link>
               <Link
                 href="http://lattes.cnpq.br/6966615403860909"
                 target="_blank"
               >
-                <Button variant="outline">Currículo</Button>
+                <Button variant="outline">{content.buttons.curriculum}</Button>
               </Link>
             </div>
           </motion.div>

@@ -1,0 +1,117 @@
+{
+  "pt": {
+    "sectionTitle": "Estude com o professor",
+    "sectionDescription": "Vamos caminhar juntos na busca pelo conhecimento, construindo uma trajetória de aprendizado que nos levará a novas descobertas e realizações.",
+    "button": {
+      "soon": "EM BREVE"
+    },
+    "items": [
+      {
+        "title": "Sistemas Operacionais",
+        "description": "Na disciplina de Sistemas Operacionais, os alunos aprendem os fundamentos e as principais funções dos sistemas operacionais, que são essenciais para o funcionamento dos computadores. O curso aborda o gerenciamento de processos, incluindo a criação, execução e sincronização de processos, bem como a comunicação entre eles.",
+        "status": "Disponível",
+        "image": "/courses/sistema.png?height=200&width=400",
+        "href": "https://mega.nz/file/qZ4FgaIJ#do3aao6O1la3W6ahoIKnsZQC_QAtvWwBGvZjEwGUtg4",
+        "buttonText": "Quero o material"
+      },
+      {
+        "title": "Arquitetura e Organização de Computadores",
+        "description": "Na disciplina de Arquitetura e Organização de Computadores, os alunos analisam a estrutura interna dos computadores, unidades de processamento, memória, barramentos e explorar os princípios de funcionamento e desempenho de sistemas computacionais.",
+        "status": "Disponível",
+        "image": "/courses/arquitetura.png?height=200&width=400",
+        "href": "https://mega.nz/file/LYpmgRCB#YIi71TFla-0hahrAJ2M3hDsvhGMRBgbiNcxZhgEFBw8",
+        "buttonText": "Quero o material"
+      },
+      {
+        "title": "Redes de Computadores",
+        "description": "Na disciplina de Redes de Computadores, os alunos aprendem os princípios fundamentais que regem a comunicação entre dispositivos em uma rede. O curso abrange a arquitetura de redes, incluindo modelos de referência como o OSI e o TCP/IP, que facilitam a compreensão das diferentes camadas de comunicação.",
+        "status": "Disponível",
+        "image": "/courses/redes.png?height=200&width=400",
+        "href": "https://mega.nz/file/jBxkRCwC#WY-soEYLpbcOEe_b5iHTgHOB4ykA27oWQBz8c-mFp6w",
+        "buttonText": "Quero o material"
+      },
+      {
+        "title": "Auditoria e Segurança de Sistemas",
+        "description": "Na disciplina de Auditoria e Segurança de Sistemas, os alunos aprendem a identificar vulnerabilidades, implementar controles de segurança e realizar auditorias em sistemas de informação, visando proteger dados e garantir a integridade das operações.",
+        "status": "Disponível",
+        "image": "/courses/auditoria.png?height=200&width=400",
+        "href": "https://mega.nz/file/7UoBxJTQ#6nO1PaPBep5nBJW5ZD1zS-8TCk2lW23h9wyEH-5CGT8",
+        "buttonText": "Quero o material"
+      },
+      {
+        "title": "Inteligência Artificial",
+        "description": "No curso de Inteligência Artificial, os alunos estudam os princípios e técnicas, como raciocínio lógico, aprendizado de máquina, que permitem a simulação de processos cognitivos por máquinas, abrangendo tópicos como Eng. de Prompt, Agentes, Clone de Cérebro e IA Aplicada.",
+        "status": "EM BREVE",
+        "image": "/courses/ia.png?height=200&width=400",
+        "href": "",
+        "buttonText": "Em breve"
+      },
+      {
+        "title": "Criptomoedas",
+        "description": "No curso de Criptomoedas, os alunos aprendem os princípios e fundamentos das moedas digitais, com ênfase nas tecnologias que possibilitam sua operação, como blockchain, questões de segurança, Bitcoin, Ethereum, Carteiras e Análise de Projetos de Criptomoedas.",
+        "status": "EM BREVE",
+        "image": "/courses/criptomoedas.png?height=200&width=400",
+        "href": "",
+        "buttonText": "Em breve"
+      }
+    ]
+  },
+  "en": {
+    "sectionTitle": "Study with the professor",
+    "sectionDescription": "Let’s walk together in the pursuit of knowledge, building a learning journey that will lead us to new discoveries and achievements.",
+    "button": {
+      "soon": "Coming Soon"
+    },
+
+    "items": [
+      {
+        "title": "Operating Systems",
+        "description": "In the Operating Systems course, students learn the fundamentals and main functions of operating systems, which are essential for the functioning of computers. The course covers process management, including creation, execution, synchronization, and communication between processes.",
+        "status": "Disponível",
+        "image": "/courses/sistema.png?height=200&width=400",
+        "href": "https://mega.nz/file/qZ4FgaIJ#do3aao6O1la3W6ahoIKnsZQC_QAtvWwBGvZjEwGUtg4",
+        "buttonText": "Get the material"
+      },
+      {
+        "title": "Computer Architecture and Organization",
+        "description": "In the Computer Architecture and Organization course, students analyze the internal structure of computers, processing units, memory, buses, and explore the principles of operation and performance of computational systems.",
+        "status": "Disponível",
+        "image": "/courses/arquitetura.png?height=200&width=400",
+        "href": "https://mega.nz/file/LYpmgRCB#YIi71TFla-0hahrAJ2M3hDsvhGMRBgbiNcxZhgEFBw8",
+        "buttonText": "Get the material"
+      },
+      {
+        "title": "Computer Networks",
+        "description": "In the Computer Networks course, students learn the fundamental principles governing communication between devices in a network. The course covers network architecture, including reference models like OSI and TCP/IP, which help in understanding the different layers of communication.",
+        "status": "Disponível",
+        "image": "/courses/redes.png?height=200&width=400",
+        "href": "https://mega.nz/file/jBxkRCwC#WY-soEYLpbcOEe_b5iHTgHOB4ykA27oWQBz8c-mFp6w",
+        "buttonText": "Get the material"
+      },
+      {
+        "title": "Systems Audit and Security",
+        "description": "In the Systems Audit and Security course, students learn to identify vulnerabilities, implement security controls, and perform audits on information systems to protect data and ensure the integrity of operations.",
+        "status": "Disponível",
+        "image": "/courses/auditoria.png?height=200&width=400",
+        "href": "https://mega.nz/file/7UoBxJTQ#6nO1PaPBep5nBJW5ZD1zS-8TCk2lW23h9wyEH-5CGT8",
+        "buttonText": "Get the material"
+      },
+      {
+        "title": "Artificial Intelligence",
+        "description": "In the Artificial Intelligence course, students study the principles and techniques, such as logical reasoning and machine learning, which allow the simulation of cognitive processes by machines, covering topics like Prompt Engineering, Agents, Brain Cloning, and Applied AI.",
+        "status": "EM BREVE",
+        "image": "/courses/ia.png?height=200&width=400",
+        "href": "",
+        "buttonText": "Coming soon"
+      },
+      {
+        "title": "Cryptocurrencies",
+        "description": "In the Cryptocurrencies course, students learn the principles and fundamentals of digital currencies, focusing on the technologies that enable their operation, such as blockchain, security issues, Bitcoin, Ethereum, Wallets, and Cryptocurrency Project Analysis.",
+        "status": "EM BREVE",
+        "image": "/courses/criptomoedas.png?height=200&width=400",
+        "href": "",
+        "buttonText": "Coming soon"
+      }
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "pt": {
+    "title": "O seu professor",
+    "intro": "Sou o Prof. Dr. Rodolfo Barriviera, pai, autodidata, um sonhador e realizador de sonhos, dedicado à trajetória acadêmica e profissional centrada no aprendizado e ensino.",
+    "paragraphs": [
+      "Iniciei minha jornada graduando-me em Engenharia da Computação, com pesquisa focada em Agentes Inteligentes. Avancei obtendo o título de Mestre em Processamento de Imagens e concluí meu Doutorado em Segurança Computacional.",
+      "Desde 2010, atuo como Professor Federal, compartilhando conhecimento e inspirando novas gerações de estudantes. Também exerço o papel de Gestor de Projetos de Tecnologia e Inovação, liderando iniciativas cruciais para o progresso da área.",
+      "Tenho a satisfação de participar de projetos de impacto em colaboração com parceiros como Huawei, onde contribuo com capacitações em Cloud Services e 5G, e com a Agência Espacial Brasileira (AEB) no projeto Desenvolvimento de Negócios com Produtos e Serviços Espaciais.",
+      "Minha missão é ajudar as pessoas a prosperarem por meio do aprendizado da tecnologia!",
+      "Atuo nas áreas de: Segurança Computacional, Inteligência Artificial e Gestão de Projetos."
+    ],
+    "buttons": {
+      "projects": "Projetos",
+      "contact": "Contato",
+      "curriculum": "Currículo"
+    }
+  },
+  "en": {
+    "title": "Your Professor",
+    "intro": "I’m Prof. Dr. Rodolfo Barriviera — father, autodidact, a dreamer and a doer — devoted to an academic and professional path centered on learning and teaching.",
+    "paragraphs": [
+      "I began my journey with a degree in Computer Engineering, focusing on Intelligent Agents. I then earned a Master’s in Image Processing and completed my PhD in Cybersecurity.",
+      "Since 2010, I’ve worked as a Federal Professor, sharing knowledge and inspiring new generations. I also serve as a Technology and Innovation Project Manager, leading crucial initiatives for technological advancement.",
+      "I take pride in contributing to impactful projects in collaboration with partners such as Huawei — offering training in Cloud Services and 5G — and with the Brazilian Space Agency (AEB) through the Space Products and Services Business Development project.",
+      "My mission is to help people thrive through learning technology!",
+      "I work in the fields of Cybersecurity, Artificial Intelligence, and Project Management."
+    ],
+    "buttons": {
+      "projects": "Projects",
+      "contact": "Contact",
+      "curriculum": "Curriculum"
+    }
+  }
+}
