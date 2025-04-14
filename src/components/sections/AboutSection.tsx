@@ -8,6 +8,7 @@ import Link from "next/link";
 import About from "@/app/messages/sections/AboutSection.json";
 import { useLanguage } from "@/context/LanguageContext";
 import type { AboutJson } from "@/types/sections/AboutSection";
+import SectionHeader from "../layout/SectionHeader";
 
 export default function AboutSection() {
   const { language } = useLanguage();
@@ -29,9 +30,7 @@ export default function AboutSection() {
           transition={{ duration: 0.7 }}
         >
           <div className="space-y-2">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              {content.title}
-            </h2>
+            <SectionHeader title={content.title} />
             <p className="mx-auto max-w-[900px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
               {content.intro}
             </p>
@@ -77,16 +76,31 @@ export default function AboutSection() {
             </div>
             <div className="flex gap-4 justify-center lg:justify-start">
               <Link href="/#projetos">
-                <Button variant="outline">{content.buttons.projects}</Button>
+                <Button
+                  variant="default"
+                  className="shadow-lg bg-[var(--second-background)]"
+                >
+                  {content.buttons.projects}
+                </Button>
               </Link>
               <Link href="mailto:rodolfo.barriviera@ifpr.edu.br">
-                <Button variant="outline">{content.buttons.contact}</Button>
+                <Button
+                  variant="default"
+                  className="shadow-lg bg-[var(--second-background)]"
+                >
+                  {content.buttons.contact}
+                </Button>
               </Link>
               <Link
                 href="http://lattes.cnpq.br/6966615403860909"
                 target="_blank"
               >
-                <Button variant="outline">{content.buttons.curriculum}</Button>
+                <Button
+                  variant="default"
+                  className="shadow-lg bg-[var(--second-background)]"
+                >
+                  {content.buttons.curriculum}
+                </Button>
               </Link>
             </div>
           </motion.div>

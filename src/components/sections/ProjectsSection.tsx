@@ -21,6 +21,7 @@ import type {
   ProjectsJson,
   ProjectItem,
 } from "@/types/sections/ProjectsSection";
+import SectionHeader from "../layout/SectionHeader";
 
 interface Project {
   title: string;
@@ -67,7 +68,7 @@ export default function ProjectsSection() {
   return (
     <section
       id="projetos"
-      className="w-full py-12 md:py-24 lg:py-32 bg-blue-50"
+      className="w-full py-12 md:py-24 lg:py-32 bg-[var(--second-background)]"
     >
       <div className="container max-w-[1200px] mx-auto px-4 md:px-6">
         <motion.div
@@ -78,9 +79,7 @@ export default function ProjectsSection() {
           transition={{ duration: 0.7 }}
         >
           <div className="space-y-2">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              {content.projects.title}
-            </h2>
+            <SectionHeader title={content.projects.title} />
             <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
               {content.projects.subtitle}
             </p>
@@ -184,7 +183,7 @@ function ProjectCard({ project }: { project: Project }) {
           alt={project.title}
           className="w-full object-cover"
         />
-        <div className="absolute top-2 right-2 rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground">
+        <div className="absolute top-2 right-2 rounded-full bg-[var(--primary-color)] px-3 py-1 text-xs font-medium text-[var(--button-foreground)]">
           {project.status == "FREE"
             ? content.projects.button.learnMore
             : project.status == "ENCERRADO"
@@ -207,18 +206,30 @@ function ProjectCard({ project }: { project: Project }) {
       <CardFooter>
         {project.status === "FREE" ? (
           <Link href={project.href} target="_blank" className="w-full">
-            <Button variant="outline" size="sm" className="w-full">
+            <Button
+              variant="default"
+              size="sm"
+              className="w-full shadow-lg bg-[var(--second-background)]"
+            >
               {content.projects.button.learnMore}
               <ExternalLink className="ml-2 h-4 w-4" />
             </Button>
           </Link>
         ) : project.status === "ENCERRADO" ? (
-          <Button variant="outline" size="sm" className="w-full">
+          <Button
+            variant="default"
+            size="sm"
+            className="w-full shadow-lg bg-[var(--second-background)]"
+          >
             {content.projects.button.closed}{" "}
             <ExternalLink className="ml-2 h-4 w-4" />
           </Button>
         ) : project.status === "EM BREVE" ? (
-          <Button variant="outline" size="sm" className="w-full">
+          <Button
+            variant="default"
+            size="sm"
+            className="w-full shadow-lg bg-[var(--second-background)]"
+          >
             {content.projects.button.soon}{" "}
             <ExternalLink className="ml-2 h-4 w-4" />
           </Button>

@@ -11,6 +11,7 @@ import type {
   TimelineJson,
   TimelineItem,
 } from "@/types/sections/TimelineSection";
+import SectionHeader from "../layout/SectionHeader";
 
 export default function TimelineSection() {
   const { language } = useLanguage();
@@ -22,7 +23,7 @@ export default function TimelineSection() {
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
-    <section className="w-full py-12 md:py-24 lg:py-32 bg-blue-50">
+    <section className="w-full py-12 md:py-24 lg:py-32 bg-[var(--background)]">
       <div className="container px-4 md:px-6 max-w-[1200px] mx-auto">
         <motion.div
           ref={ref}
@@ -32,9 +33,7 @@ export default function TimelineSection() {
           transition={{ duration: 0.7 }}
         >
           <div className="space-y-2">
-            <h2 className="text-xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              {content.sectionTitle}
-            </h2>
+            <SectionHeader title={content.sectionTitle} />
             <p className="text-sm mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
               {content.sectionDescription}
             </p>
@@ -42,7 +41,7 @@ export default function TimelineSection() {
         </motion.div>
         <div className="mx-auto max-w-3xl py-12">
           <div className="relative">
-            <div className="absolute left-1/2 top-0 h-full w-0.5 -translate-x-1/2 bg-border"></div>
+            <div className="absolute left-1/2 top-0 h-full w-0.5 -translate-x-1/2 bg-[var(--primary-color)]"></div>
             {timelineItems.map((item, index) => (
               <motion.div
                 key={index}
@@ -67,7 +66,7 @@ export default function TimelineSection() {
                     {item.description}
                   </p>
                 </div>
-                <div className="absolute left-1/2 z-10 flex h-10 w-10 -translate-x-1/2 items-center justify-center rounded-full bg-blue-400 text-primary-foreground">
+                <div className="absolute left-1/2 z-10 flex h-10 w-10 -translate-x-1/2 items-center justify-center rounded-full bg-[var(--primary-color)] text-[var(--button-foreground)]">
                   <Calendar className="h-5 w-5" />
                 </div>
                 <div
@@ -89,7 +88,10 @@ export default function TimelineSection() {
               transition={{ duration: 0.5, delay: 0.8 }}
             >
               <Link href="http://lattes.cnpq.br/6966615403860909">
-                <Button variant="outline">
+                <Button
+                  variant="default"
+                  className="bg-[var(--primary-color)] text-[var(--button-foreground)] hover-button"
+                >
                   {content.button}
                   <Download className="ml-2 h-4 w-4" />
                 </Button>

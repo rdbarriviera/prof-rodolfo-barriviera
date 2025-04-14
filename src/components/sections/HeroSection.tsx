@@ -16,7 +16,7 @@ export default function HeroSection() {
     <section className="relative overflow-hidden py-20 md:py-32 min-h-screen flex items-center">
       {/* Background with gradient overlay */}
       <div className="absolute inset-0 bg-[url('/placeholder.svg?height=1080&width=1920')] bg-cover bg-center">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-200 to-blue-50" />
+        <div className="absolute inset-0" />
       </div>
 
       <div className="container max-w-[1200px] relative px-4 lg:px-0 z-10 mx-auto">
@@ -68,9 +68,12 @@ export default function HeroSection() {
               transition={{ delay: 0.6, duration: 0.5 }}
             >
               <Link href="/#sobre">
-                <Button size="lg" className="group">
+                <Button
+                  size="lg"
+                  className="group bg-[var(--primary-color)] text-[var(--button-foreground)] hover-button"
+                >
                   {content.cta}
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <ArrowRight className="ml-2 h-4 w-4 transition-transform text-[var(--button-foreground)]" />
                 </Button>
               </Link>
             </motion.div>

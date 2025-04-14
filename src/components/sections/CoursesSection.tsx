@@ -18,6 +18,7 @@ import Link from "next/link";
 import Course from "@/app/messages/sections/CoursesSection.json";
 import { useLanguage } from "@/context/LanguageContext";
 import type { CoursesJson, CourseItem } from "@/types/sections/CoursesSection";
+import SectionHeader from "../layout/SectionHeader";
 
 interface Course {
   title: string;
@@ -65,7 +66,7 @@ export default function CoursesSection() {
   return (
     <section
       id="cursos"
-      className="w-full py-12 md:py-24 lg:py-32 bg-background"
+      className="w-full py-12 md:py-24 lg:py-32 bg-[var(--second-background)]"
     >
       <div className="container px-4 md:px-6 max-w-[1200px] mx-auto">
         <motion.div
@@ -76,9 +77,7 @@ export default function CoursesSection() {
           transition={{ duration: 0.7 }}
         >
           <div className="space-y-2">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              {content.sectionTitle}
-            </h2>
+            <SectionHeader title={content.sectionTitle} />
             <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
               {content.sectionDescription}
             </p>
@@ -191,7 +190,11 @@ function CourseCard({ course }: { course: Course }) {
       </CardContent>
       <CardFooter>
         <Link href={course.href} target="_blank">
-          <Button variant="outline" size="sm" className="w-full group">
+          <Button
+            variant="default"
+            size="sm"
+            className="w-full group shadow-lg bg-[var(--second-background)]"
+          >
             <BookOpen className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
             {course.status === "EM BREVE"
               ? course.buttonText

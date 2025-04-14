@@ -20,7 +20,7 @@ export default function TermsOfUsePage() {
           >
             <Link
               href="/"
-              className="inline-flex items-center text-sm hover:text-primary mb-6 text-blue-500"
+              className="inline-flex items-center text-sm mb-6 text-[var(--primary-color)]"
             >
               <ArrowLeft className="mr-2 h-4 w-4" />
               Voltar para a página inicial
@@ -297,7 +297,10 @@ export default function TermsOfUsePage() {
           </motion.div>
 
           <div className="mt-12 flex justify-center">
-            <Button asChild>
+            <Button
+              asChild
+              className="bg-[var(--primary-color)] text-[var(--button-foreground)] hover-button"
+            >
               <Link href="/">Voltar para a página inicial</Link>
             </Button>
           </div>

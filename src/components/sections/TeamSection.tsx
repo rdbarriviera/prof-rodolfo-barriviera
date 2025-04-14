@@ -8,6 +8,7 @@ import { Linkedin } from "lucide-react";
 import TeamMember from "@/app/messages/sections/TeamSection.json";
 import { useLanguage } from "@/context/LanguageContext";
 import type { TeamJson, TeamItem } from "@/types/sections/TeamSection";
+import SectionHeader from "../layout/SectionHeader";
 
 export default function TeamSection() {
   const { language } = useLanguage();
@@ -32,9 +33,7 @@ export default function TeamSection() {
           transition={{ duration: 0.7 }}
         >
           <div className="space-y-2">
-            <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
-              {content.sectionTitle}
-            </h2>
+            <SectionHeader title={content.sectionTitle} />
             <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
               {content.sectionDescription}
             </p>
