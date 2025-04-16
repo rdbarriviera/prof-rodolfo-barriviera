@@ -174,7 +174,7 @@ function ProjectCard({ project }: { project: Project }) {
   const { language } = useLanguage();
   const content = (Project as ProjectsJson)[language];
   return (
-    <Card className="h-full overflow-hidden">
+    <Card className="h-full flex flex-col justify-between overflow-hidden">
       <div className="relative">
         <Image
           src={project.image || "/placeholder.svg"}
@@ -183,15 +183,6 @@ function ProjectCard({ project }: { project: Project }) {
           alt={project.title}
           className="w-full object-cover"
         />
-        <div className="absolute top-2 right-2 rounded-full bg-[var(--primary-color)] px-3 py-1 text-xs font-medium text-[var(--button-foreground)]">
-          {project.status == "FREE"
-            ? content.projects.button.learnMore
-            : project.status == "ENCERRADO"
-            ? content.projects.button.closed
-            : project.status == "EM BREVE"
-            ? content.projects.button.soon
-            : null}
-        </div>
         <div className="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
       </div>
 
@@ -203,13 +194,13 @@ function ProjectCard({ project }: { project: Project }) {
         <CardDescription>{project.description}</CardDescription>
       </CardContent>
 
-      <CardFooter>
+      <CardFooter className="mt-auto">
         {project.status === "FREE" ? (
           <Link href={project.href} target="_blank" className="w-full">
             <Button
               variant="default"
               size="sm"
-              className="w-full shadow-lg bg-[var(--second-background)]"
+              className="w-full h-10 shadow-lg bg-blue-100"
             >
               {content.projects.button.learnMore}
               <ExternalLink className="ml-2 h-4 w-4" />
@@ -217,21 +208,19 @@ function ProjectCard({ project }: { project: Project }) {
           </Link>
         ) : project.status === "ENCERRADO" ? (
           <Button
-            variant="default"
+            variant="ghost"
             size="sm"
-            className="w-full shadow-lg bg-[var(--second-background)]"
+            className="w-full h-10 text-red-400"
           >
-            {content.projects.button.closed}{" "}
-            <ExternalLink className="ml-2 h-4 w-4" />
+            {content.projects.button.closed}
           </Button>
         ) : project.status === "EM BREVE" ? (
           <Button
             variant="default"
             size="sm"
-            className="w-full shadow-lg bg-[var(--second-background)]"
+            className="w-full h-10 shadow-lg bg-[var(--second-background)]"
           >
-            {content.projects.button.soon}{" "}
-            <ExternalLink className="ml-2 h-4 w-4" />
+            {content.projects.button.soon}
           </Button>
         ) : null}
       </CardFooter>

@@ -1,13 +1,19 @@
 {
   "pt": {
     "sectionTitle": "EQUIPE",
-    "sectionDescription": "Conheça os profissionais que trabalham juntos para oferecer a melhor experiência de aprendizado.",
+    "sectionDescription": "Conheça os profissionais e estudantes que trabalham juntos para oferecer a melhor experiência de aprendizado.",
     "items": [
       {
-        "name": "LETÍCIA ITO",
-        "role": "Análise e Desenvolvimento de Sistemas - 3° período",
-        "image": "/team/leticia.png?height=200&width=200",
-        "href": "https://www.linkedin.com/in/leticia-ito-3046591a2/"
+        "name": "MÁRCIA CRISTINA",
+        "role": "Prof. do Instituto Federal do Paraná",
+        "image": "/team/marcia.png?height=200&width=200",
+        "href": "http://www.linkedin.com/in/marcia-cristina-dos-reis-5a78b4230"
+      },
+      {
+        "name": "JÚLIO DE MELLO",
+        "role": "Apoio Administrativo",
+        "image": "/team/julio.png?height=200&width=200",
+        "href": ""
       },
       {
         "name": "GABRIEL FERNANDES",
@@ -16,34 +22,28 @@
         "href": "https://www.linkedin.com/in/gabriel-fernandes-920421204/"
       },
       {
-        "name": "MÁRCIA CRISTINA",
-        "role": "Prof. do Instituto Federal do Paraná",
-        "image": "/team/marcia.png?height=200&width=200",
-        "href": "http://www.linkedin.com/in/marcia-cristina-dos-reis-5a78b4230"
-      },
-      {
         "name": "ADRIAN CAMPANA",
         "role": "Análise e Desenvolvimento de Sistemas - 5° período",
         "image": "/team/adrian.png?height=200&width=200",
         "href": "https://www.linkedin.com/in/adrian-campana/"
       },
       {
+        "name": "LETÍCIA ITO",
+        "role": "Análise e Desenvolvimento de Sistemas - 3° período",
+        "image": "/team/leticia.png?height=200&width=200",
+        "href": "https://www.linkedin.com/in/leticia-ito-3046591a2/"
+      },
+      {
         "name": "MARCELO RIBEIRO",
         "role": "Análise e Desenvolvimento de Sistemas - 5° período",
         "image": "/team/marcelo.png?height=200&width=200",
         "href": "https://www.linkedin.com/in/marceloribeiromartins/"
-      },
-      {
-        "name": "JÚLIO DE MELLO",
-        "role": "Apoio Administrativo",
-        "image": "/team/julio.png?height=200&width=200",
-        "href": ""
       }
     ]
   },
   "en": {
     "sectionTitle": "TEAM",
-    "sectionDescription": "Meet the professionals who work together to offer the best learning experience.",
+    "sectionDescription": "Meet the professionals and students who work together to offer the best learning experience.",
     "items": [
       {
         "name": "LETÍCIA ITO",

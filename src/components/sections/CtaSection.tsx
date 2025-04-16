@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Facebook, Instagram, Linkedin } from "lucide-react";
+import { Instagram, Linkedin } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -50,15 +50,6 @@ export function CTASection() {
                 <Button className="bg-white text-[var(--primary-color)] hover:bg-green-50 shadow-lg px-6 py-5 sm:px-8 sm:py-6 text-base sm:text-lg w-full md:w-auto">
                   <Linkedin className="mr-2 h-24 w-24" />
                   Linkedin
-                </Button>
-              </Link>
-              <Link
-                href="https://www.facebook.com/profrodolfobarriviera/?locale=pt_BR"
-                target="_blank"
-              >
-                <Button className="bg-white text-[var(--primary-color)] hover:bg-green-50 shadow-lg px-6 py-5 sm:px-8 sm:py-6 text-base sm:text-lg w-full md:w-auto">
-                  <Facebook className="mr-2 h-24 w-24" />
-                  Facebook
                 </Button>
               </Link>
             </motion.div>

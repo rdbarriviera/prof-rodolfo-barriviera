@@ -25,7 +25,7 @@ const DesktopMenu = () => {
         >
           <Link href="/" className="flex items-center gap-2">
             <span className="text-xl font-semibold text-[var(--primary-color)]">
-              Prof.Rodolfo Barriviera
+              Prof. Rodolfo Barriviera
             </span>
           </Link>
         </motion.div>

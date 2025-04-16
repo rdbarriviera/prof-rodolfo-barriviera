@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -9,12 +9,25 @@ import About from "@/app/messages/sections/AboutSection.json";
 import { useLanguage } from "@/context/LanguageContext";
 import type { AboutJson } from "@/types/sections/AboutSection";
 import SectionHeader from "../layout/SectionHeader";
+import { Copy } from "lucide-react";
 
 export default function AboutSection() {
   const { language } = useLanguage();
   const content = (About as AboutJson)[language];
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, amount: 0.3 });
+  const email = "rodolfo.barriviera@ifpr.edu.br";
+  const [copiado, setCopiado] = useState(false);
+
+  const copiarEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopiado(true);
+      setTimeout(() => setCopiado(false), 2000); // resetar estado depois de 2 segundos
+    } catch (err) {
+      console.error("Erro ao copiar o email: ", err);
+    }
+  };
 
   return (
     <section
@@ -73,6 +86,16 @@ export default function AboutSection() {
               <p className="text-muted-foreground text-center lg:text-start">
                 {content.paragraphs[4]}
               </p>
+              <div className="flex flex-row gap-2 items-center">
+                {content.buttons.contact}
+                <p>{email}</p>
+                <button className="cursor-pointer" onClick={copiarEmail}>
+                  <Copy size={16} />
+                </button>
+                {copiado && (
+                  <span className="text-sm text-green-500">Copiado!</span>
+                )}
+              </div>
             </div>
             <div className="flex gap-4 justify-center lg:justify-start">
               <Link href="/#projetos">
@@ -83,14 +106,7 @@ export default function AboutSection() {
                   {content.buttons.projects}
                 </Button>
               </Link>
-              <Link href="mailto:rodolfo.barriviera@ifpr.edu.br">
-                <Button
-                  variant="default"
-                  className="shadow-lg bg-[var(--second-background)]"
-                >
-                  {content.buttons.contact}
-                </Button>
-              </Link>
+
               <Link
                 href="http://lattes.cnpq.br/6966615403860909"
                 target="_blank"

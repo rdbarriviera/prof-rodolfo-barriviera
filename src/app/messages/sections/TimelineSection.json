@@ -7,17 +7,27 @@
       {
         "date": "DEZ 2003",
         "title": "Graduação em Engenharia da Computação",
-        "description": "Universidade"
+        "description": "Universidade Norte do Paraná"
+      },
+      {
+        "date": "DEZ 2005",
+        "title": "Pós Graduação em Redes e Comunicação de Dados",
+        "description": "Universidade Estadual de Londrina"
+      },
+      {
+        "date": "DEZ 2007",
+        "title": "Pós Graduação em Metodologia do Ensino Superior",
+        "description": "Universidade Norte do Paraná"
       },
       {
         "date": "JUL 2009",
         "title": "Mestrado em Processamento de Imagens",
-        "description": "Universidade"
+        "description": "Universidade Federal do Paraná"
       },
       {
         "date": "JUL 2017",
         "title": "Doutorado em Segurança Computacional",
-        "description": "Universidade"
+        "description": "Universidade Federal do Paraná"
       }
     ]
   },
@@ -29,17 +39,27 @@
       {
         "date": "DEC 2003",
         "title": "Bachelor's in Computer Engineering",
-        "description": "University"
+        "description": "Northern University of Paraná"
+      },
+      {
+        "date": "DEC 2005",
+        "title": "Postgraduate Degree in Networks and Data Communications",
+        "description": "State University of Londrina"
+      },
+      {
+        "date": "DEC 2007",
+        "title": "Postgraduate Degree in Higher Education Methodology",
+        "description": "Northern University of Paraná"
       },
       {
         "date": "JUL 2009",
         "title": "Master's in Image Processing",
-        "description": "University"
+        "description": "Federal University of Paraná - Brazil"
       },
       {
         "date": "JUL 2017",
         "title": "PhD in Computer Security",
-        "description": "University"
+        "description": "Federal University of Paraná - Brazil"
       }
     ]
   }

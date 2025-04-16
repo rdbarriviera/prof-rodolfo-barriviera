@@ -9,6 +9,7 @@ import CoursesSection from "@/components/sections/CoursesSection";
 import TimelineSection from "@/components/sections/TimelineSection";
 import TeamSection from "@/components/sections/TeamSection";
 import { CTASection } from "@/components/sections/CtaSection";
+import ScrollToTopButton from "@/components/layout/ScrollToTopButton";
 
 export default function Home() {
   return (
@@ -22,6 +23,7 @@ export default function Home() {
         <CoursesSection />
         <TimelineSection />
         <TeamSection />
+        <ScrollToTopButton />
       </main>
       <Footer />
     </div>

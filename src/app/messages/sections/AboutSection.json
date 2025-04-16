@@ -11,7 +11,7 @@
     ],
     "buttons": {
       "projects": "Projetos",
-      "contact": "Contato",
+      "contact": "Contato:",
       "curriculum": "Currículo"
     }
   },
@@ -27,7 +27,7 @@
     ],
     "buttons": {
       "projects": "Projects",
-      "contact": "Contact",
+      "contact": "Contact:",
       "curriculum": "Curriculum"
     }
   }

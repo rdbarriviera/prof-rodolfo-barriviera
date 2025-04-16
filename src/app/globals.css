@@ -63,17 +63,6 @@
   background-color: var(--primary-color-hover);
 }
 
-.text-gradient-white {
-  background: linear-gradient(
-    to right,
-    #2979ff,
-    #afccff
-  ); /* Gradiente do dourado até o amarelo claro */
-  -webkit-background-clip: text; /* Para Safari */
-  background-clip: text;
-  color: transparent; /* Deixa o texto transparente para o gradiente aparecer */
-}
-
 :root {
   --radius: 0.625rem;
 

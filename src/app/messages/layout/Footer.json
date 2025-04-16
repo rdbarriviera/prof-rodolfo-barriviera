@@ -2,7 +2,7 @@
   "pt": {
     "professor": {
       "name": "Prof. Rodolfo Barriviera",
-      "description": "Ajudando as pessoas a prosperarem através da tecnologia.",
+      "description": "AJUDO AS PESSOAS A PROSPERAREM ATRAVÉS DA TECNOLOGIA.",
       "social": [
         {
           "label": "Instagram",
@@ -18,7 +18,13 @@
         }
       ]
     },
-    "quickLinks": ["Links Rápidos", "Sobre", "Projetos", "Cursos", "Equipe"],
+    "quickLinks": [
+      "Links Rápidos",
+      "Sobre",
+      "Projetos",
+      "Disciplinas",
+      "Equipe"
+    ],
     "disciplines": [
       "Disciplinas",
       "Sistemas Operacionais",
@@ -32,7 +38,7 @@
   "en": {
     "professor": {
       "name": "Prof. Rodolfo Barriviera",
-      "description": "Helping people thrive through technology.",
+      "description": "I HELP PEOPLE PROSPER THROUGH TECHNOLOGY.",
       "social": [
         {
           "label": "Instagram",
@@ -48,7 +54,7 @@
         }
       ]
     },
-    "quickLinks": ["QuickLinks", "About", "Projects", "Courses", "Team"],
+    "quickLinks": ["QuickLinks", "About", "Projects", "Disciplines", "Team"],
     "disciplines": [
       "Disciplines",
       "Operating Systems",

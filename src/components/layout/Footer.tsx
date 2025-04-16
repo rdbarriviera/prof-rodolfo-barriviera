@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Facebook, Instagram, Linkedin } from "lucide-react";
+import { Instagram, Linkedin } from "lucide-react";
 import footer from "@/app/messages/layout/Footer.json";
 import { useLanguage } from "@/context/LanguageContext";
 import type { FooterJson } from "@/types/layout/Footer";
@@ -34,13 +34,6 @@ export default function Footer() {
               >
                 <Linkedin className="h-5 w-5" />
                 <span className="sr-only">LinkedIn</span>
-              </Link>
-              <Link
-                href="https://www.facebook.com/profrodolfobarriviera/?locale=pt_BR"
-                className="text-muted-foreground hover:text-foreground"
-              >
-                <Facebook className="h-5 w-5" />
-                <span className="sr-only">Facebook</span>
               </Link>
             </div>
           </div>
@@ -79,15 +72,6 @@ export default function Footer() {
                   {content.quickLinks[4]}
                 </Link>
               </li>
-            </ul>
-          </div>
-          <div className="space-y-4">
-            <h3 className="text-lg font-bold">{content.disciplines[0]}</h3>
-            <ul className="space-y-2 text-sm">
-              <li>{content.disciplines[1]}</li>
-              <li>{content.disciplines[2]}</li>
-              <li>{content.disciplines[3]}</li>
-              <li>{content.disciplines[4]}</li>
             </ul>
           </div>
           <div className="space-y-4">

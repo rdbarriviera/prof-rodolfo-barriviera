@@ -45,14 +45,6 @@
         "image": "/courses/ia.png?height=200&width=400",
         "href": "",
         "buttonText": "Em breve"
-      },
-      {
-        "title": "Criptomoedas",
-        "description": "No curso de Criptomoedas, os alunos aprendem os princípios e fundamentos das moedas digitais, com ênfase nas tecnologias que possibilitam sua operação, como blockchain, questões de segurança, Bitcoin, Ethereum, Carteiras e Análise de Projetos de Criptomoedas.",
-        "status": "EM BREVE",
-        "image": "/courses/criptomoedas.png?height=200&width=400",
-        "href": "",
-        "buttonText": "Em breve"
       }
     ]
   },
@@ -101,14 +93,6 @@
         "description": "In the Artificial Intelligence course, students study the principles and techniques, such as logical reasoning and machine learning, which allow the simulation of cognitive processes by machines, covering topics like Prompt Engineering, Agents, Brain Cloning, and Applied AI.",
         "status": "EM BREVE",
         "image": "/courses/ia.png?height=200&width=400",
-        "href": "",
-        "buttonText": "Coming soon"
-      },
-      {
-        "title": "Cryptocurrencies",
-        "description": "In the Cryptocurrencies course, students learn the principles and fundamentals of digital currencies, focusing on the technologies that enable their operation, such as blockchain, security issues, Bitcoin, Ethereum, Wallets, and Cryptocurrency Project Analysis.",
-        "status": "EM BREVE",
-        "image": "/courses/criptomoedas.png?height=200&width=400",
         "href": "",
         "buttonText": "Coming soon"
       }
