@@ -32,7 +32,7 @@ export default function HeroSection() {
               width={500}
               height={500}
               alt="Prof. Rodolfo Barriviera"
-              className="w-64 h-64 md:w-96 md:h-96 object-cover mx-auto rounded-full "
+              className="high-contrast-border w-64 h-64 md:w-96 md:h-96 object-cover mx-auto rounded-full "
             />
           </div>
         </motion.div>
@@ -90,7 +90,7 @@ export default function HeroSection() {
                 width={500}
                 height={500}
                 alt="Prof. Rodolfo Barriviera"
-                className="w-64 h-64 md:w-96 md:h-96 object-cover flex justify-center rounded-full"
+                className="high-contrast-border w-64 h-64 md:w-96 md:h-96 object-cover flex justify-center rounded-full"
               />
             </div>
           </motion.div>

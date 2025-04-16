@@ -120,7 +120,7 @@ export default function ProjectsSection() {
             </div>
 
             <button
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-background hover:bg-muted text-foreground rounded-full p-2 z-10 shadow-md"
+              className="high-contrast-border absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-background hover:bg-muted text-foreground rounded-full p-2 z-10 shadow-md"
               onClick={prev}
               aria-label="Projeto anterior"
             >
@@ -128,7 +128,7 @@ export default function ProjectsSection() {
             </button>
 
             <button
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-background hover:bg-muted text-foreground rounded-full p-2 z-10 shadow-md"
+              className="high-contrast-border absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-background hover:bg-muted text-foreground rounded-full p-2 z-10 shadow-md"
               onClick={next}
               aria-label="Próximo projeto"
             >
@@ -143,7 +143,7 @@ export default function ProjectsSection() {
                     setAutoplay(false);
                     setCurrent(index);
                   }}
-                  className={`h-2 w-2 rounded-full transition-all duration-300 ${
+                  className={`high-contrast-border h-2 w-2 rounded-full transition-all duration-300 ${
                     current === index ? "bg-primary w-6" : "bg-muted-foreground"
                   }`}
                   aria-label={`Ir para projeto ${index + 1}`}
@@ -174,7 +174,7 @@ function ProjectCard({ project }: { project: Project }) {
   const { language } = useLanguage();
   const content = (Project as ProjectsJson)[language];
   return (
-    <Card className="h-full flex flex-col justify-between overflow-hidden">
+    <Card className="high-contrast-border h-full flex flex-col justify-between overflow-hidden">
       <div className="relative">
         <Image
           src={project.image || "/placeholder.svg"}
@@ -200,7 +200,7 @@ function ProjectCard({ project }: { project: Project }) {
             <Button
               variant="default"
               size="sm"
-              className="w-full h-10 shadow-lg bg-blue-100"
+              className="high-contrast-border w-full h-10 shadow-lg bg-[var(--color-button-more)] high-contrast-text"
             >
               {content.projects.button.learnMore}
               <ExternalLink className="ml-2 h-4 w-4" />

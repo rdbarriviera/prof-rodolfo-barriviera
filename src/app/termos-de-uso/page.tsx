@@ -11,7 +11,7 @@ export default function TermsOfUsePage() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      <main className="flex-1 container py-10 mt-24 md:py-16 max-w-[1200px] mx-auto">
+      <main className="flex-1 container py-10 mt-24 md:py-16 max-w-[1200px] mx-auto px-8">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

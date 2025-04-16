@@ -17,7 +17,7 @@ export function CTASection() {
     <section className="py-16 md:py-20">
       <div className="container mx-auto px-4">
         <motion.div
-          className="bg-gradient-to-r from-[var(--primary-color)] to-[var(--primary-color)] rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 shadow-xl relative overflow-hidden"
+          className="high-contrast-border bg-gradient-to-r from-[var(--primary-color)] to-[var(--primary-color)] rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 shadow-xl relative overflow-hidden"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -37,7 +37,7 @@ export function CTASection() {
                 href="https://www.instagram.com/prof.rodolfobarriviera/"
                 target="_blank"
               >
-                <Button className="bg-white text-[var(--primary-color)] hover:bg-green-50 shadow-lg px-6 py-5 sm:px-8 sm:py-6 text-base sm:text-lg w-full md:w-auto">
+                <Button className="bg-white high-contrast-text hover:bg-green-50 shadow-lg px-6 py-5 sm:px-8 sm:py-6 text-base sm:text-lg w-full md:w-auto">
                   <Instagram className="mr-2 h-24 w-24" />
                   Instagram
                 </Button>
@@ -47,7 +47,7 @@ export function CTASection() {
                 href="https://br.linkedin.com/in/profrodolfobarriviera"
                 target="_blank"
               >
-                <Button className="bg-white text-[var(--primary-color)] hover:bg-green-50 shadow-lg px-6 py-5 sm:px-8 sm:py-6 text-base sm:text-lg w-full md:w-auto">
+                <Button className="bg-white high-contrast-text hover:bg-green-50 shadow-lg px-6 py-5 sm:px-8 sm:py-6 text-base sm:text-lg w-full md:w-auto">
                   <Linkedin className="mr-2 h-24 w-24" />
                   Linkedin
                 </Button>

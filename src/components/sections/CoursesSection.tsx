@@ -119,7 +119,7 @@ export default function CoursesSection() {
             </div>
 
             <button
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-background hover:bg-muted text-foreground rounded-full p-2 z-10 shadow-md"
+              className="high-contrast-border absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 bg-background hover:bg-muted text-foreground rounded-full p-2 z-10 shadow-md"
               onClick={prev}
               aria-label="Curso anterior"
             >
@@ -127,7 +127,7 @@ export default function CoursesSection() {
             </button>
 
             <button
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-background hover:bg-muted text-foreground rounded-full p-2 z-10 shadow-md"
+              className="high-contrast-border absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 bg-background hover:bg-muted text-foreground rounded-full p-2 z-10 shadow-md"
               onClick={next}
               aria-label="Próximo curso"
             >
@@ -142,7 +142,7 @@ export default function CoursesSection() {
                     setAutoplay(false);
                     setCurrent(index);
                   }}
-                  className={`h-2 w-2 rounded-full transition-all duration-300 ${
+                  className={`high-contrast-border h-2 w-2 rounded-full transition-all duration-300 ${
                     current === index ? "bg-primary w-6" : "bg-muted-foreground"
                   }`}
                   aria-label={`Ir para curso ${index + 1}`}
@@ -161,7 +161,7 @@ function CourseCard({ course }: { course: Course }) {
   const content = (Course as CoursesJson)[language];
 
   return (
-    <Card className="h-full overflow-hidden transition-all duration-300 hover:shadow-lg">
+    <Card className="high-contrast-border h-full overflow-hidden transition-all duration-300 hover:shadow-lg">
       <div className="relative">
         <div className="relative h-48 w-full overflow-hidden">
           <Image
@@ -193,7 +193,7 @@ function CourseCard({ course }: { course: Course }) {
           <Button
             variant="default"
             size="sm"
-            className="w-full group shadow-lg bg-[var(--second-background)]"
+            className="high-contrast-border w-full group shadow-lg bg-[var(--second-background)]"
           >
             <BookOpen className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
             {course.status === "EM BREVE"

@@ -57,7 +57,7 @@ const MobileMenu = () => {
 
   return (
     <div className="relative">
-      <header className="fixed top-0 left-0 right-0 z-50 bg-[var(--background)]/80 backdrop-blur-lg shadow-lg py-4 max-w-[1200px] rounded-3xl mt-4 mx-4 flex justify-between items-center px-6">
+      <header className="high-contrast-border fixed top-0 left-0 right-0 z-50 bg-[var(--background)]/80 backdrop-blur-lg shadow-lg py-4 max-w-[1200px] rounded-3xl mt-4 mx-4 flex justify-between items-center px-6">
         <div className="text-xl font-bold">
           <Link href="/" className="flex items-center gap-2">
             <span className="text-[var(--primary-color)] text-sm">

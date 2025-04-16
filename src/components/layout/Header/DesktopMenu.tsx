@@ -17,7 +17,7 @@ const DesktopMenu = () => {
   ];
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-[var(--background)]/80 backdrop-blur-lg shadow-lg py-2 max-w-[1200px] rounded-3xl mx-auto mt-4">
+    <header className="high-contrast-border fixed top-0 left-0 right-0 z-50 bg-[var(--background)]/80 backdrop-blur-lg shadow-lg py-2 max-w-[1200px] rounded-3xl mx-auto mt-4">
       <div className="container mx-auto flex justify-between items-center px-8 gap-4">
         <motion.div
           className=" text-3xl font-bold cursor-pointer"

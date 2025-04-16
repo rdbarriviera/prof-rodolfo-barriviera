@@ -12,7 +12,7 @@ export default function PrivacyPolicyPage() {
     <div className="min-h-screen flex flex-col">
       <Header />
 
-      <main className="flex-1 container py-10 md:py-16 max-w-[1200px] mx-auto mt-24">
+      <main className="flex-1 container py-10 md:py-16 max-w-[1200px] mx-auto mt-24 px-8">
         <div className="max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
