@@ -70,6 +70,8 @@
   --primary-color-hover: #011f53;
   --color-button-more: #c7d9f7;
 
+  --background-cookie: #ffffff;
+
   --background: #ffffff; /* body do site */
   --second-background: #f0f4f8;
   --foreground: #202020;
@@ -81,6 +83,8 @@
   --primary-color: #00ffff;
   --primary-color-hover: #00b3b3;
   --color-button-more: #c7d9f7;
+
+  --background-cookie: #ffffff;
 
   --background: #000000; /* body do site */
   --second-background: #111111;

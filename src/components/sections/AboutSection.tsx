@@ -101,7 +101,7 @@ export default function AboutSection() {
               <Link href="/#projetos">
                 <Button
                   variant="default"
-                  className="shadow-lg bg-[var(--second-background)]"
+                  className="high-contrast-border shadow-lg bg-[var(--second-background)]"
                 >
                   {content.buttons.projects}
                 </Button>
@@ -113,7 +113,7 @@ export default function AboutSection() {
               >
                 <Button
                   variant="default"
-                  className="shadow-lg bg-[var(--second-background)]"
+                  className=" high-contrast-border shadow-lg bg-[var(--second-background)]"
                 >
                   {content.buttons.curriculum}
                 </Button>
