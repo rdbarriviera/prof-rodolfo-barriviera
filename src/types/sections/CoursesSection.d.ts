@@ -14,6 +14,16 @@ export interface CoursesJson {
     button: {
       soon: string;
     };
+    modal: {
+      titleModal: string;
+      descriptionModal: string;
+      emailModal: string;
+      titleButton: string;
+      processButton: string;
+      descriptionWarningModal: string;
+      errorMessageModal: string;
+      errorProcessMessageModal: string;
+    };
     items: CourseItem[];
   };
 }

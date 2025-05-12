@@ -14,7 +14,7 @@ export function CTASection() {
   const content = (Cta as CtaJson)[language];
 
   return (
-    <section className="py-16 md:py-20">
+    <section className="py-16 md:py-20 max-w-[1200px] mx-auto">
       <div className="container mx-auto px-4">
         <motion.div
           className="high-contrast-border bg-gradient-to-r from-[var(--primary-color)] to-[var(--primary-color)] rounded-xl sm:rounded-2xl p-6 sm:p-8 md:p-12 shadow-xl relative overflow-hidden"

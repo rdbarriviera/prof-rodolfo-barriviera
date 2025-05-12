@@ -5,6 +5,16 @@
     "button": {
       "soon": "EM BREVE"
     },
+    "modal": {
+      "titleModal": "Acesso ao material",
+      "descriptionModal": "Informe seu e-email para liberar o acesso",
+      "emailModal": "Seu melhor e-mail",
+      "titleButton": "Acessar Material",
+      "processButton": "Processando...",
+      "descriptionWarningModal": "Ao informar seu e-mail, você concorda em receber comunicações sobre este curso e outras ofertas relacionadas.",
+      "errorMessageModal": "Por favor, insira um e-mail válido.",
+      "errorProcessMessageModal": "Ocorreu um erro ao processar sua solicitação. Tente novamente."
+    },
     "items": [
       {
         "title": "Sistemas Operacionais",
@@ -54,7 +64,16 @@
     "button": {
       "soon": "Coming Soon"
     },
-
+    "modal": {
+      "titleModal": "Access to the Material",
+      "descriptionModal": "Enter your email to unlock access",
+      "emailModal": "Your best email",
+      "titleButton": "Access the Material",
+      "processButton": "Processing...",
+      "descriptionWarningModal": "By providing your email, you agree to receive communications about this course and other related offers.",
+      "errorMessageModal": "Please enter a valid email address.",
+      "errorProcessMessageModal": "An error occurred while processing your request. Please try again."
+    },
     "items": [
       {
         "title": "Operating Systems",

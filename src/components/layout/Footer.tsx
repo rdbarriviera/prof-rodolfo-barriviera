@@ -14,7 +14,7 @@ export default function Footer() {
       className="w-full border-t bg-background py-6 md:py-12"
     >
       <div className="container max-w-[1200px] mx-auto px-4 md:px-6">
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
           <div className="space-y-4">
             <h3 className="text-lg font-bold">{content.professor.name}</h3>
             <p className="text-sm text-muted-foreground">

@@ -14,25 +14,19 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { useMediaQuery } from "@/hooks/use-media-query";
-import Link from "next/link";
 import Course from "@/app/messages/sections/CoursesSection.json";
 import { useLanguage } from "@/context/LanguageContext";
 import type { CoursesJson, CourseItem } from "@/types/sections/CoursesSection";
 import SectionHeader from "../layout/SectionHeader";
 
-interface Course {
-  title: string;
-  description: string;
-  status: string;
-  image: string;
-  href: string;
-  buttonText: string;
+interface CourseCardProps {
+  course: CourseItem;
+  onAccessClick: (course: CourseItem) => void;
 }
 
 export default function CoursesSection() {
   const { language } = useLanguage();
   const content = (Course as CoursesJson)[language];
-
   const courses: CourseItem[] = content.items;
 
   const ref = useRef(null);
@@ -43,13 +37,18 @@ export default function CoursesSection() {
   const [current, setCurrent] = useState(0);
   const [autoplay, setAutoplay] = useState(true);
 
+  // Modal control state
+  const [showModal, setShowModal] = useState(false);
+  const [selectedCourse, setSelectedCourse] = useState<CourseItem | null>(null);
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
+
   useEffect(() => {
     if (!autoplay || isDesktop) return;
-
     const interval = setInterval(() => {
       setCurrent((prev) => (prev === courses.length - 1 ? 0 : prev + 1));
     }, 5000);
-
     return () => clearInterval(interval);
   }, [autoplay, courses.length, isDesktop]);
 
@@ -61,6 +60,55 @@ export default function CoursesSection() {
   const prev = () => {
     setAutoplay(false);
     setCurrent((prev) => (prev === 0 ? courses.length - 1 : prev - 1));
+  };
+
+  const handleAccessClick = (course: CourseItem) => {
+    if (course.status !== "EM BREVE") {
+      setSelectedCourse(course);
+      setShowModal(true);
+    }
+  };
+
+  const handleSubmitEmail = async () => {
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      setError(content.modal.errorMessageModal);
+      return;
+    }
+
+    setIsSubmitting(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          courseName: selectedCourse?.title,
+          courseLink: selectedCourse?.href,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        console.error("Erro do servidor:", data.error);
+        setError("Erro ao enviar o email. Tente novamente.");
+        return;
+      }
+
+      console.log("Email enviado com sucesso:", data);
+
+      setShowModal(false);
+      window.open(selectedCourse?.href, "_blank");
+    } catch (err) {
+      console.error("Erro inesperado:", err);
+      setError(content.modal.errorProcessMessageModal);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -85,7 +133,6 @@ export default function CoursesSection() {
         </motion.div>
 
         {isDesktop ? (
-          // Desktop Grid View
           <div className="mx-auto grid max-w-6xl grid-cols-1 gap-6 py-12 md:grid-cols-2 lg:grid-cols-3">
             {courses.map((course, index) => (
               <motion.div
@@ -97,12 +144,11 @@ export default function CoursesSection() {
                 transition={{ duration: 0.5, delay: 0.1 * index }}
                 whileHover={{ y: -5 }}
               >
-                <CourseCard course={course} />
+                <CourseCard course={course} onAccessClick={handleAccessClick} />
               </motion.div>
             ))}
           </div>
         ) : (
-          // Mobile Carousel View
           <div className="relative max-w-md mx-auto py-12">
             <div className="overflow-hidden">
               <AnimatePresence mode="wait">
@@ -113,7 +159,10 @@ export default function CoursesSection() {
                   exit={{ opacity: 0, x: -100 }}
                   transition={{ type: "spring", damping: 25, stiffness: 200 }}
                 >
-                  <CourseCard course={courses[current]} />
+                  <CourseCard
+                    course={courses[current]}
+                    onAccessClick={handleAccessClick}
+                  />
                 </motion.div>
               </AnimatePresence>
             </div>
@@ -152,14 +201,86 @@ export default function CoursesSection() {
           </div>
         )}
       </div>
+
+      {/* Modal fora do grid! */}
+      {showModal && selectedCourse && (
+        <div className="fixed inset-0 z-[9999] flex items-center justify-center p-4">
+          <div
+            className="absolute inset-0 bg-black/70"
+            onClick={() => setShowModal(false)}
+          ></div>
+          <div
+            className="relative max-w-md w-full bg-[var(--second-background)] high-contrast-border rounded-xl shadow-2xl overflow-hidden z-[10000]"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-primary/60"></div>
+
+            <div className="p-6">
+              <h2 className="text-2xl font-bold mb-2 text-center text-[var(--primary-color)]">
+                {content.modal.titleModal}
+              </h2>
+              <p className="text-muted-foreground text-center mb-6">
+                {content.modal.descriptionModal}
+              </p>
+
+              <div className="space-y-4">
+                <div>
+                  <input
+                    type="email"
+                    placeholder={content.modal.emailModal}
+                    className="w-full p-3 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-primary/50"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                  {error && (
+                    <p className="mt-2 text-sm text-red-500">{error}</p>
+                  )}
+                </div>
+
+                <Button
+                  className="w-full py-6 text-base font-medium high-contrast-border bg-[var(--primary-color)] text-[var(--button-foreground)]"
+                  onClick={handleSubmitEmail}
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting
+                    ? content.modal.processButton
+                    : content.modal.titleButton}
+                </Button>
+
+                <p className="text-xs text-center text-muted-foreground">
+                  {content.modal.descriptionWarningModal}
+                </p>
+              </div>
+            </div>
+
+            <button
+              className="absolute top-4 right-4 text-muted-foreground hover:text-foreground cursor-pointer"
+              onClick={() => setShowModal(false)}
+              aria-label="Fechar"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
 
-function CourseCard({ course }: { course: Course }) {
-  const { language } = useLanguage();
-  const content = (Course as CoursesJson)[language];
-
+function CourseCard({ course, onAccessClick }: CourseCardProps) {
   return (
     <Card className="high-contrast-border h-full overflow-hidden transition-all duration-300 hover:shadow-lg">
       <div className="relative">
@@ -171,13 +292,6 @@ function CourseCard({ course }: { course: Course }) {
             className="object-cover transition-transform duration-500 hover:scale-105 shadow-[inset_0_0_10px_rgba(0,0,0,0.1)]"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-          <div className="absolute bottom-4 left-4 text-white flex items-center gap-2">
-            {course.status === "EM BREVE" && (
-              <span className="inline-flex items-center rounded-full bg-primary px-2.5 py-0.5 text-xs font-semibold text-primary-foreground">
-                {content.button.soon}
-              </span>
-            )}
-          </div>
         </div>
       </div>
       <CardHeader className="pb-2">
@@ -189,18 +303,15 @@ function CourseCard({ course }: { course: Course }) {
         </CardDescription>
       </CardContent>
       <CardFooter>
-        <Link href={course.href} target="_blank">
-          <Button
-            variant="default"
-            size="sm"
-            className="high-contrast-border w-full group shadow-lg bg-[var(--second-background)]"
-          >
-            <BookOpen className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
-            {course.status === "EM BREVE"
-              ? course.buttonText
-              : course.buttonText}
-          </Button>
-        </Link>
+        <Button
+          variant="default"
+          size="sm"
+          className="high-contrast-border w-full group shadow-lg bg-[var(--second-background)]"
+          onClick={() => onAccessClick(course)}
+        >
+          <BookOpen className="mr-2 h-4 w-4 transition-transform group-hover:scale-110" />
+          {course.status === "EM BREVE" ? course.buttonText : course.buttonText}
+        </Button>
       </CardFooter>
     </Card>
   );
