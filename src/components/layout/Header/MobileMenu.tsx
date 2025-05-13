@@ -61,7 +61,7 @@ const MobileMenu = () => {
         <div className="text-xl font-bold">
           <Link href="/" className="flex items-center gap-2">
             <span className="text-[var(--primary-color)] text-sm">
-              Prof. Rodolfo Barriviera
+              Prof. Dr. Rodolfo Barriviera
             </span>
           </Link>
         </div>
@@ -74,9 +74,9 @@ const MobileMenu = () => {
               transition={{ duration: 0.3 }}
             >
               {isOpen ? (
-                <X className="h-8 w-8 text-[var(--primary-color)]" />
+                <X className="h-6 w-6 md:h-8 md:w-8 text-[var(--primary-color)]" />
               ) : (
-                <Menu className="h-8 w-8 text-[var(--primary-color)]" />
+                <Menu className="h-6 w-6 md:h-8 md:w-8 text-[var(--primary-color)]" />
               )}
             </motion.div>
           </button>

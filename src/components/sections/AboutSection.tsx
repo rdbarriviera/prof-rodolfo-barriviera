@@ -70,7 +70,7 @@ export default function AboutSection() {
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            <div className="space-y-4">
+            <div className="space-y-4 text-sm md:text-base">
               <p className="text-muted-foreground text-center lg:text-start">
                 {content.paragraphs[0]}
               </p>

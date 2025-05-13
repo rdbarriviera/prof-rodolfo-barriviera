@@ -79,12 +79,12 @@ export default function HeroSection() {
             </motion.div>
           </div>
           <motion.div
-            className="items-center justify-center hidden lg:flex"
+            className="items-center justify-end hidden lg:flex"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3, duration: 0.5 }}
           >
-            <div className="w-full min-w-lg flex justify-center drop-shadow-2xl">
+            <div className="w-full min-w-lg flex justify-end drop-shadow-2xl">
               <Image
                 src="/Prof.png"
                 width={500}
