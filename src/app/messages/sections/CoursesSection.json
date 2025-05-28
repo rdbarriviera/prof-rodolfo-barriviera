@@ -17,6 +17,22 @@
     },
     "items": [
       {
+        "title": "Inteligência Artificial",
+        "description": "No curso de Inteligência Artificial, os alunos estudam os princípios e técnicas, como raciocínio lógico, aprendizado de máquina, que permitem a simulação de processos cognitivos por máquinas, abrangendo tópicos como Eng. de Prompt, Agentes, Clone de Cérebro e IA Aplicada.",
+        "status": "EM BREVE",
+        "image": "/courses/ia.png?height=200&width=400",
+        "href": "",
+        "buttonText": "Em breve"
+      },
+      {
+        "title": "Auditoria e Segurança de Sistemas",
+        "description": "Na disciplina de Auditoria e Segurança de Sistemas, os alunos aprendem a identificar vulnerabilidades, implementar controles de segurança e realizar auditorias em sistemas de informação, visando proteger dados e garantir a integridade das operações.",
+        "status": "Disponível",
+        "image": "/courses/auditoria.png?height=200&width=400",
+        "href": "https://mega.nz/file/7UoBxJTQ#6nO1PaPBep5nBJW5ZD1zS-8TCk2lW23h9wyEH-5CGT8",
+        "buttonText": "Quero o material"
+      },
+      {
         "title": "Sistemas Operacionais",
         "description": "Na disciplina de Sistemas Operacionais, os alunos aprendem os fundamentos e as principais funções dos sistemas operacionais, que são essenciais para o funcionamento dos computadores. O curso aborda o gerenciamento de processos, incluindo a criação, execução e sincronização de processos, bem como a comunicação entre eles.",
         "status": "Disponível",
@@ -39,22 +55,6 @@
         "image": "/courses/redes.png?height=200&width=400",
         "href": "https://mega.nz/file/jBxkRCwC#WY-soEYLpbcOEe_b5iHTgHOB4ykA27oWQBz8c-mFp6w",
         "buttonText": "Quero o material"
-      },
-      {
-        "title": "Auditoria e Segurança de Sistemas",
-        "description": "Na disciplina de Auditoria e Segurança de Sistemas, os alunos aprendem a identificar vulnerabilidades, implementar controles de segurança e realizar auditorias em sistemas de informação, visando proteger dados e garantir a integridade das operações.",
-        "status": "Disponível",
-        "image": "/courses/auditoria.png?height=200&width=400",
-        "href": "https://mega.nz/file/7UoBxJTQ#6nO1PaPBep5nBJW5ZD1zS-8TCk2lW23h9wyEH-5CGT8",
-        "buttonText": "Quero o material"
-      },
-      {
-        "title": "Inteligência Artificial",
-        "description": "No curso de Inteligência Artificial, os alunos estudam os princípios e técnicas, como raciocínio lógico, aprendizado de máquina, que permitem a simulação de processos cognitivos por máquinas, abrangendo tópicos como Eng. de Prompt, Agentes, Clone de Cérebro e IA Aplicada.",
-        "status": "EM BREVE",
-        "image": "/courses/ia.png?height=200&width=400",
-        "href": "",
-        "buttonText": "Em breve"
       }
     ]
   },
@@ -75,6 +75,23 @@
       "errorProcessMessageModal": "An error occurred while processing your request. Please try again."
     },
     "items": [
+      {
+        "title": "Artificial Intelligence",
+        "description": "In the Artificial Intelligence course, students study the principles and techniques, such as logical reasoning and machine learning, which allow the simulation of cognitive processes by machines, covering topics like Prompt Engineering, Agents, Brain Cloning, and Applied AI.",
+        "status": "EM BREVE",
+        "image": "/courses/ia.png?height=200&width=400",
+        "href": "",
+        "buttonText": "Coming soon"
+      },
+      {
+        "title": "Systems Audit and Security",
+        "description": "In the Systems Audit and Security course, students learn to identify vulnerabilities, implement security controls, and perform audits on information systems to protect data and ensure the integrity of operations.",
+        "status": "Disponível",
+        "image": "/courses/auditoria.png?height=200&width=400",
+        "href": "https://mega.nz/file/7UoBxJTQ#6nO1PaPBep5nBJW5ZD1zS-8TCk2lW23h9wyEH-5CGT8",
+        "buttonText": "Get the material"
+      },
+
       {
         "title": "Operating Systems",
         "description": "In the Operating Systems course, students learn the fundamentals and main functions of operating systems, which are essential for the functioning of computers. The course covers process management, including creation, execution, synchronization, and communication between processes.",
@@ -98,22 +115,6 @@
         "image": "/courses/redes.png?height=200&width=400",
         "href": "https://mega.nz/file/jBxkRCwC#WY-soEYLpbcOEe_b5iHTgHOB4ykA27oWQBz8c-mFp6w",
         "buttonText": "Get the material"
-      },
-      {
-        "title": "Systems Audit and Security",
-        "description": "In the Systems Audit and Security course, students learn to identify vulnerabilities, implement security controls, and perform audits on information systems to protect data and ensure the integrity of operations.",
-        "status": "Disponível",
-        "image": "/courses/auditoria.png?height=200&width=400",
-        "href": "https://mega.nz/file/7UoBxJTQ#6nO1PaPBep5nBJW5ZD1zS-8TCk2lW23h9wyEH-5CGT8",
-        "buttonText": "Get the material"
-      },
-      {
-        "title": "Artificial Intelligence",
-        "description": "In the Artificial Intelligence course, students study the principles and techniques, such as logical reasoning and machine learning, which allow the simulation of cognitive processes by machines, covering topics like Prompt Engineering, Agents, Brain Cloning, and Applied AI.",
-        "status": "EM BREVE",
-        "image": "/courses/ia.png?height=200&width=400",
-        "href": "",
-        "buttonText": "Coming soon"
       }
     ]
   }

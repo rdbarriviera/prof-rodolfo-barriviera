@@ -11,17 +11,24 @@
       },
       "items": [
         {
-          "title": "DO ZERO AO PRIMEIRO INVESTIMENTO EM BITCOIN",
-          "description": "Curso desenvolvido para iniciantes entenderem o fascinante mundo das criptomoedas e realizarem seu primeiro investimento de forma segura e consciente, garantindo a compreensão sobre o funcionamento das criptomoedas, suas características e as melhores práticas para iniciar no mercado.",
-          "status": "ENCERRADO",
-          "image": "/projects/bitcoin.png?height=300&width=400",
+          "title": "INTELIGÊNCIA ARTIFICIAL",
+          "description": "A palestra prática “Inteligência Artificial (IA) Aplicada para Professores” tem como objetivo capacitar educadores a integrar tecnologias de IA em seu dia a dia. Durante a palestra, os participantes aprenderão a utilizar técnicas de engenharia de prompt, criar apresentações automaticamente, aprimorar artigos científicos, automatizar a correção de textos e documentos, além de explorar diversos recursos digitais que facilitam e enriquecem suas práticas pedagógicas.",
+          "status": "EM BREVE",
+          "image": "/projects/ia.png?height=300&width=400",
           "href": ""
         },
         {
-          "title": "CURSOS DE CLOUD E IA COM CERTIFICAÇÃO",
-          "description": "O avanço das tecnologias de nuvem e inteligência artificial (IA) tem transformado as diversas áreas do mercado. Sabendo dessa tendência, o Instituto Federal do Paraná junto com a Huawei, promoveu o curso para capacitar com conhecimentos teóricos e práticos nas tecnologias de nuvem e IA.",
+          "title": "DESENVOLVIMENTO DE NEGÓCIOS COM PRODUTOS E SERVIÇOS ESPACIAIS",
+          "description": "Lançamento do curso de Desenvolvimento de Startups, em colaboração do Instituto Federal do Paraná (IFPR) e a Agência Espacial Brasileira (AEB), oferece uma oportunidade inovadora para profissionais e estudantes interessados no setor espacial. O curso foi cuidadosamente elaborado para abranger todas as etapas do desenvolvimento de startups, com ênfase na indústria espacial.",
+          "status": "FREE",
+          "image": "/projects/aeb.png?height=300&width=400",
+          "href": "https://aeb.profrodolfobarriviera.com/"
+        },
+        {
+          "title": "CURSO PREPARATÓRIO PARA CERTIFICAÇÃO HCIA 5G",
+          "description": "Curso de 5G, colaboração entre o Instituto Federal do Paraná (IFPR) e a empresa Huawei, uma iniciativa para capacitar nas tecnologias que estão moldando o futuro das comunicações. Abordando os avanços associados à quinta geração de redes móveis, oferecendo uma formação abrangente nos aspectos teóricos quanto práticos.",
           "status": "ENCERRADO",
-          "image": "/projects/cloud.png?height=300&width=400",
+          "image": "/projects/5g.png?height=300&width=400",
           "href": ""
         },
         {
@@ -32,24 +39,17 @@
           "href": ""
         },
         {
-          "title": "CURSO PREPARATÓRIO PARA CERTIFICAÇÃO HCIA 5G",
-          "description": "Curso de 5G, colaboração entre o Instituto Federal do Paraná (IFPR) e a empresa Huawei, uma iniciativa para capacitar nas tecnologias que estão moldando o futuro das comunicações. Abordando os avanços associados à quinta geração de redes móveis, oferecendo uma formação abrangente nos aspectos teóricos quanto práticos.",
+          "title": "CURSOS DE CLOUD E IA COM CERTIFICAÇÃO",
+          "description": "O avanço das tecnologias de nuvem e inteligência artificial (IA) tem transformado as diversas áreas do mercado. Sabendo dessa tendência, o Instituto Federal do Paraná junto com a Huawei, promoveu o curso para capacitar com conhecimentos teóricos e práticos nas tecnologias de nuvem e IA.",
           "status": "ENCERRADO",
-          "image": "/projects/5g.png?height=300&width=400",
+          "image": "/projects/cloud.png?height=300&width=400",
           "href": ""
         },
         {
-          "title": "DESENVOLVIMENTO DE NEGÓCIOS COM PRODUTOS E SERVIÇOS ESPACIAIS",
-          "description": "Lançamento do curso de Desenvolvimento de Startups, em colaboração do Instituto Federal do Paraná (IFPR) e a Agência Espacial Brasileira (AEB), oferece uma oportunidade inovadora para profissionais e estudantes interessados no setor espacial. O curso foi cuidadosamente elaborado para abranger todas as etapas do desenvolvimento de startups, com ênfase na indústria espacial.",
-          "status": "FREE",
-          "image": "/projects/aeb.png?height=300&width=400",
-          "href": "https://profrodolfobarriviera.com/ifpraeb/"
-        },
-        {
-          "title": "INTELIGÊNCIA ARTIFICIAL",
-          "description": "A palestra prática “Inteligência Artificial (IA) Aplicada para Professores” tem como objetivo capacitar educadores a integrar tecnologias de IA em seu dia a dia. Durante a palestra, os participantes aprenderão a utilizar técnicas de engenharia de prompt, criar apresentações automaticamente, aprimorar artigos científicos, automatizar a correção de textos e documentos, além de explorar diversos recursos digitais que facilitam e enriquecem suas práticas pedagógicas.",
-          "status": "EM BREVE",
-          "image": "/projects/ia.png?height=300&width=400",
+          "title": "DO ZERO AO PRIMEIRO INVESTIMENTO EM BITCOIN",
+          "description": "Curso desenvolvido para iniciantes entenderem o fascinante mundo das criptomoedas e realizarem seu primeiro investimento de forma segura e consciente, garantindo a compreensão sobre o funcionamento das criptomoedas, suas características e as melhores práticas para iniciar no mercado.",
+          "status": "ENCERRADO",
+          "image": "/projects/bitcoin.png?height=300&width=400",
           "href": ""
         }
       ]
@@ -67,18 +67,18 @@
       },
       "items": [
         {
-          "title": "FROM ZERO TO YOUR FIRST BITCOIN INVESTMENT",
-          "description": "Course developed for beginners to understand the fascinating world of cryptocurrencies and make their first investment safely and consciously. It ensures an understanding of how cryptocurrencies work, their characteristics, and best practices for entering the market.",
-          "status": "ENCERRADO",
-          "image": "/projects/bitcoin.png?height=300&width=400",
+          "title": "ARTIFICIAL INTELLIGENCE",
+          "description": "The hands-on lecture 'Artificial Intelligence (AI) Applied for Teachers' aims to train educators to integrate AI technologies into their daily routine. Participants will learn prompt engineering, auto-generating presentations, improving scientific articles, automating document correction, and exploring digital tools that enrich their teaching practices.",
+          "status": "EM BREVE",
+          "image": "/projects/ia.png?height=300&width=400",
           "href": ""
         },
         {
-          "title": "CLOUD AND AI COURSES WITH CERTIFICATION",
-          "description": "The rise of cloud and artificial intelligence (AI) technologies is transforming various sectors. Aware of this trend, the Federal Institute of Paraná in partnership with Huawei offered a course to provide both theoretical and practical knowledge in cloud and AI technologies.",
-          "status": "ENCERRADO",
-          "image": "/projects/cloud.png?height=300&width=400",
-          "href": ""
+          "title": "BUSINESS DEVELOPMENT WITH SPACE PRODUCTS AND SERVICES",
+          "description": "The Startup Development course, a collaboration between the Federal Institute of Paraná (IFPR) and the Brazilian Space Agency (AEB), offers an innovative opportunity for professionals and students interested in the space sector. The course covers all stages of startup development with a focus on the space industry.",
+          "status": "FREE",
+          "image": "/projects/aeb.png?height=300&width=400",
+          "href": "https://aeb.profrodolfobarriviera.com/"
         },
         {
           "title": "CLOUD SERVICES COURSE",
@@ -95,17 +95,17 @@
           "href": ""
         },
         {
-          "title": "BUSINESS DEVELOPMENT WITH SPACE PRODUCTS AND SERVICES",
-          "description": "The Startup Development course, a collaboration between the Federal Institute of Paraná (IFPR) and the Brazilian Space Agency (AEB), offers an innovative opportunity for professionals and students interested in the space sector. The course covers all stages of startup development with a focus on the space industry.",
-          "status": "FREE",
-          "image": "/projects/aeb.png?height=300&width=400",
-          "href": "https://profrodolfobarriviera.com/ifpraeb/"
+          "title": "CLOUD AND AI COURSES WITH CERTIFICATION",
+          "description": "The rise of cloud and artificial intelligence (AI) technologies is transforming various sectors. Aware of this trend, the Federal Institute of Paraná in partnership with Huawei offered a course to provide both theoretical and practical knowledge in cloud and AI technologies.",
+          "status": "ENCERRADO",
+          "image": "/projects/cloud.png?height=300&width=400",
+          "href": ""
         },
         {
-          "title": "ARTIFICIAL INTELLIGENCE",
-          "description": "The hands-on lecture 'Artificial Intelligence (AI) Applied for Teachers' aims to train educators to integrate AI technologies into their daily routine. Participants will learn prompt engineering, auto-generating presentations, improving scientific articles, automating document correction, and exploring digital tools that enrich their teaching practices.",
-          "status": "EM BREVE",
-          "image": "/projects/ia.png?height=300&width=400",
+          "title": "FROM ZERO TO YOUR FIRST BITCOIN INVESTMENT",
+          "description": "Course developed for beginners to understand the fascinating world of cryptocurrencies and make their first investment safely and consciously. It ensures an understanding of how cryptocurrencies work, their characteristics, and best practices for entering the market.",
+          "status": "ENCERRADO",
+          "image": "/projects/bitcoin.png?height=300&width=400",
           "href": ""
         }
       ]
