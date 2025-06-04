@@ -34,7 +34,7 @@ export default function TimelineSection() {
         >
           <div className="space-y-2">
             <SectionHeader title={content.sectionTitle} />
-            <p className="text-sm mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+            <p className="break-words text-sm mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
               {content.sectionDescription}
             </p>
           </div>
@@ -59,10 +59,10 @@ export default function TimelineSection() {
                       : "order-last text-left pl-6 md:pl-8"
                   }`}
                 >
-                  <h3 className="text-sm  md:text-lg font-bold">
+                  <h3 className="text-xs  md:text-lg font-bold">
                     {item.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="text-xs text-muted-foreground">
                     {item.description}
                   </p>
                 </div>

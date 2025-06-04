@@ -1,0 +1,24 @@
+{
+  "pt": {
+    "items": [
+      "Professor/Pesquisador da área de Inteligência Artificial",
+      "Doutor em Segurança Cibernética",
+      "Mestre em Processamento de Imagens",
+      "Engenheiro da Computação",
+      "Especialista em Redes de Computadores",
+      "Especialista em Metodologia do Ensino Superior",
+      "Avaliador/Auditor Nacional e Internacional pelo MEC"
+    ]
+  },
+  "en": {
+    "items": [
+      "Professor/Researcher in the field of Artificial Intelligence",
+      "PhD in Cybersecurity",
+      "Master in Image Processing",
+      "Computer Engineer",
+      "Specialist in Computer Networks",
+      "Specialist in Higher Education Methodology",
+      "National and International Evaluator/Auditor for MEC"
+    ]
+  }
+}

@@ -4,8 +4,7 @@
       { "label": "Sobre", "href": "/#sobre" },
       { "label": "Projetos", "href": "/#projetos" },
       { "label": "Disciplinas", "href": "/#cursos" },
-      { "label": "Equipe", "href": "/#equipe" },
-      { "label": "Blog", "href": "#" }
+      { "label": "Equipe", "href": "/#equipe" }
     ],
     "cv": "Currículo"
   },
@@ -14,8 +13,7 @@
       { "label": "About", "href": "/#sobre" },
       { "label": "Projects", "href": "/#projetos" },
       { "label": "Disciplines", "href": "/#cursos" },
-      { "label": "Team", "href": "/#equipe" },
-      { "label": "Blog", "href": "#" }
+      { "label": "Team", "href": "/#equipe" }
     ],
     "cv": "Resume"
   }

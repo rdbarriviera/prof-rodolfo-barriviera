@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/context/LanguageContext";
 import menuContent from "@/app/messages/layout/MenuDesktop.json";
@@ -70,7 +69,6 @@ const DesktopMenu = () => {
           >
             <button className="text-[var(--button-foreground)] flex flex-row gap-2 items-center bg-[var(--primary-color)] font-bold px-6 py-2 rounded-xl cursor-pointer hover-button transition duration-300">
               {content.cv}
-              <Download size={16} />
             </button>
           </a>
           <ThemeToggle />

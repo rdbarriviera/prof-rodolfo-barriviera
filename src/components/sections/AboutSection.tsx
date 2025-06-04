@@ -70,7 +70,7 @@ export default function AboutSection() {
             animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -50 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            <div className="space-y-4 text-sm md:text-base">
+            <div className="space-y-4 text-sm md:text-base break-words">
               <p className="text-muted-foreground text-center lg:text-start">
                 {content.paragraphs[0]}
               </p>
@@ -88,7 +88,7 @@ export default function AboutSection() {
               </p>
               <div className="flex flex-row gap-2 items-center">
                 {content.buttons.contact}
-                <p>{email}</p>
+                <p className="break-all">{email}</p>
                 <button className="cursor-pointer" onClick={copiarEmail}>
                   <Copy size={16} />
                 </button>

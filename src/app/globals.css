@@ -63,6 +63,12 @@
   background-color: var(--primary-color-hover);
 }
 
+.shadow-blue {
+  /* Exemplo 1: Sombra azul sutil baseada no blue-500 do Tailwind com opacidade */
+  box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.3); /* Cor: blue-500 (#3B82F6) com 30% de opacidade */
+  /* Você pode ajustar os valores de offset-x, offset-y, blur-radius, spread-radius e a cor/opacidade como desejar */
+}
+
 :root {
   --radius: 0.625rem;
 
