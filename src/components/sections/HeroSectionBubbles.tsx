@@ -2,14 +2,9 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
-import hero from "@/app/messages/sections/HeroSection.json";
-import { useLanguage } from "@/context/LanguageContext";
-import type { HeroJson } from "@/types/sections/HeroSection";
 import FloatingQualifications from "../bubbles/floating-qualifications";
 
-export default function HeroSectionTest() {
-  const { language } = useLanguage();
-  const content = (hero as HeroJson)[language];
+export default function HeroSectionBubbles() {
   return (
     <section className="mt-20 md:mt-0 relative overflow-hidden py-20 md:py-32 flex items-center">
       {/* Background with gradient overlay */}

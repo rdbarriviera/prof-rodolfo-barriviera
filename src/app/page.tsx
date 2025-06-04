@@ -10,7 +10,7 @@ import TeamSection from "@/components/sections/TeamSection";
 import { CTASection } from "@/components/sections/CtaSection";
 import ScrollToTopButton from "@/components/layout/ScrollToTopButton";
 import CookieConsentBanner from "@/components/layout/CookieConsentBanner";
-import HeroSectionTest from "@/components/sections/HeroSectionTest";
+import HeroSectionBubbles from "@/components/sections/HeroSectionBubbles";
 
 export default function Home() {
   return (
@@ -18,7 +18,7 @@ export default function Home() {
       <CookieConsentBanner />
       <Header />
       <main className="flex-1">
-        <HeroSectionTest />
+        <HeroSectionBubbles />
         <AboutSection />
         <ProjectsSection />
         <CTASection />
