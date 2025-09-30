@@ -54,7 +54,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2">
             <span className="text-lg sm:text-xl md:text-2xl">📧</span>
             <p className="text-sm sm:text-base md:text-lg text-blue-600 dark:text-blue-400 font-medium break-all sm:break-normal">
-              contato@prof-rodolfo.com
+              profrodolfobarriviera@gmail.com
             </p>
           </div>
         </div>
