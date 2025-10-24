@@ -117,6 +117,7 @@ Var
 
   // Contadores
   TradesCount        : Integer;
+  i                  : Integer;  // Loop counter
 
 
 //==============================================================================
@@ -199,7 +200,6 @@ Begin
   BuyVolume := 0;
   SellVolume := 0;
 
-  Var i: Integer;
   For i := 0 To FlowWindowSize Do Begin
     If FlowAggressors[i] = 1 Then
       BuyVolume := BuyVolume + FlowVolumes[i]
