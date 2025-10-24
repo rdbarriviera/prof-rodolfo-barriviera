@@ -1,0 +1,258 @@
+===============================================================================
+PERFIS DE CONFIGURAÇÃO - ROBÔ MINI DÓLAR VWAP + ORDER FLOW
+===============================================================================
+
+Este arquivo contém configurações otimizadas para diferentes perfis de risco.
+Copie os valores desejados nos INPUTS do robô no Profit Pro.
+
+===============================================================================
+📊 PERFIL CONSERVADOR
+===============================================================================
+
+Características:
+- Entradas mais seletivas
+- Stops menores para limitar perdas
+- Menor exposição ao risco
+- Ideal para iniciantes
+
+PARÂMETROS:
+
+StopLossPoints           = 40
+TakeProfitPoints         = 80
+MaxContracts             = 1
+VWAPDeviationPct         = 0.03
+DeltaThreshold           = 25
+BookImbalanceThreshold   = 20
+FlowWindowSize           = 150
+ClusterDominance         = 0.65
+EnableLongTrades         = True
+EnableShortTrades        = True
+EnableFlowExit           = True
+StartTime                = 0900
+EndTime                  = 1730
+StopNewTradesTime        = 1715
+
+Expectativa:
+- Menor número de trades
+- Win rate potencialmente maior
+- Menor drawdown
+- Relação risco/retorno: 1:2
+
+
+===============================================================================
+📈 PERFIL MODERADO (PADRÃO)
+===============================================================================
+
+Características:
+- Equilíbrio entre risco e retorno
+- Configuração testada e balanceada
+- Ideal para traders com experiência média
+
+PARÂMETROS:
+
+StopLossPoints           = 50
+TakeProfitPoints         = 100
+MaxContracts             = 1
+VWAPDeviationPct         = 0.05
+DeltaThreshold           = 20
+BookImbalanceThreshold   = 15
+FlowWindowSize           = 100
+ClusterDominance         = 0.60
+EnableLongTrades         = True
+EnableShortTrades        = True
+EnableFlowExit           = True
+StartTime                = 0900
+EndTime                  = 1730
+StopNewTradesTime        = 1715
+
+Expectativa:
+- Número moderado de trades
+- Win rate balanceado
+- Drawdown controlado
+- Relação risco/retorno: 1:2
+
+
+===============================================================================
+🚀 PERFIL AGRESSIVO
+===============================================================================
+
+Características:
+- Mais entradas de trade
+- Stops maiores para evitar saídas prematuras
+- Maior exposição ao risco
+- Ideal para traders experientes
+
+PARÂMETROS:
+
+StopLossPoints           = 70
+TakeProfitPoints         = 140
+MaxContracts             = 2
+VWAPDeviationPct         = 0.08
+DeltaThreshold           = 15
+BookImbalanceThreshold   = 10
+FlowWindowSize           = 75
+ClusterDominance         = 0.55
+EnableLongTrades         = True
+EnableShortTrades        = True
+EnableFlowExit           = True
+StartTime                = 0900
+EndTime                  = 1730
+StopNewTradesTime        = 1715
+
+Expectativa:
+- Maior número de trades
+- Win rate potencialmente menor
+- Maior drawdown possível
+- Relação risco/retorno: 1:2
+
+
+===============================================================================
+🎯 PERFIL SCALPER (INTRADAY RÁPIDO)
+===============================================================================
+
+Características:
+- Operações rápidas
+- Targets e stops menores
+- Múltiplas operações por dia
+- Requer acompanhamento constante
+
+PARÂMETROS:
+
+StopLossPoints           = 30
+TakeProfitPoints         = 45
+MaxContracts             = 1
+VWAPDeviationPct         = 0.02
+DeltaThreshold           = 15
+BookImbalanceThreshold   = 12
+FlowWindowSize           = 50
+ClusterDominance         = 0.65
+EnableLongTrades         = True
+EnableShortTrades        = True
+EnableFlowExit           = True
+StartTime                = 0930      // Evita abertura volátil
+EndTime                  = 1700      // Sai mais cedo
+StopNewTradesTime        = 1630
+
+Expectativa:
+- Muitos trades por dia
+- Win rate precisa ser alto (>60%)
+- Baixo drawdown por trade
+- Relação risco/retorno: 1:1.5
+
+
+===============================================================================
+🛡️ PERFIL DEFENSIVO (TENDÊNCIA)
+===============================================================================
+
+Características:
+- Apenas segue tendências fortes
+- Stops largos
+- Poucos trades, alta qualidade
+- Menor estresse operacional
+
+PARÂMETROS:
+
+StopLossPoints           = 100
+TakeProfitPoints         = 200
+MaxContracts             = 1
+VWAPDeviationPct         = 0.10
+DeltaThreshold           = 30
+BookImbalanceThreshold   = 25
+FlowWindowSize           = 200
+ClusterDominance         = 0.70
+EnableLongTrades         = True
+EnableShortTrades        = True
+EnableFlowExit           = False     // Não sai por reversão de fluxo
+StartTime                = 0900
+EndTime                  = 1730
+StopNewTradesTime        = 1600
+
+Expectativa:
+- Poucos trades por dia (1-3)
+- Win rate médio a baixo
+- Grandes ganhos quando acerta
+- Relação risco/retorno: 1:2
+
+
+===============================================================================
+⏰ PERFIS POR HORÁRIO
+===============================================================================
+
+HORÁRIO PADRÃO (Recomendado):
+StartTime                = 0900
+EndTime                  = 1730
+StopNewTradesTime        = 1715
+
+APENAS ABERTURA (9h-11h):
+StartTime                = 0900
+EndTime                  = 1100
+StopNewTradesTime        = 1045
+// Maior volatilidade, ideal para scalper
+
+APENAS MEIO DO DIA (11h-15h):
+StartTime                = 1100
+EndTime                  = 1500
+StopNewTradesTime        = 1445
+// Menor volatilidade, movimentos mais limpos
+
+APENAS FECHAMENTO (15h-17:30h):
+StartTime                = 1500
+EndTime                  = 1730
+StopNewTradesTime        = 1715
+// Alta volatilidade, requer experiência
+
+
+===============================================================================
+🔧 AJUSTES FINOS
+===============================================================================
+
+Para AUMENTAR o número de trades:
+- Diminuir DeltaThreshold (de 20 para 15)
+- Diminuir BookImbalanceThreshold (de 15 para 10)
+- Aumentar VWAPDeviationPct (de 0.05 para 0.08)
+
+Para DIMINUIR o número de trades (mais seletivo):
+- Aumentar DeltaThreshold (de 20 para 25)
+- Aumentar BookImbalanceThreshold (de 15 para 20)
+- Diminuir VWAPDeviationPct (de 0.05 para 0.03)
+
+Para trades MAIS LONGOS:
+- Aumentar StopLossPoints e TakeProfitPoints
+- Desabilitar EnableFlowExit (False)
+- Aumentar FlowWindowSize
+
+Para trades MAIS RÁPIDOS:
+- Diminuir StopLossPoints e TakeProfitPoints
+- Habilitar EnableFlowExit (True)
+- Diminuir FlowWindowSize
+
+
+===============================================================================
+⚠️ RECOMENDAÇÕES IMPORTANTES
+===============================================================================
+
+1. SEMPRE teste qualquer configuração em SIMULAÇÃO primeiro
+2. Comece SEMPRE com 1 contrato (MaxContracts = 1)
+3. Acompanhe as primeiras operações de perto
+4. Anote os resultados para otimizar
+5. Não mude parâmetros durante o dia de trade
+6. Respeite seu stop loss sempre
+7. Não opere se o mercado estiver muito volátil (abertura de dados)
+
+===============================================================================
+📊 TABELA DE REFERÊNCIA - VALORES DO MINI DÓLAR
+===============================================================================
+
+Tick do WDO:             0.5 pontos
+Valor do tick:           R$ 0,20
+Valor de 1 ponto:        R$ 0,40
+
+Exemplos:
+- Stop de 50 pontos   = R$ 20 por contrato
+- Target de 100 pontos = R$ 40 por contrato
+- Stop de 70 pontos   = R$ 28 por contrato
+
+
+===============================================================================
+FIM DO ARQUIVO
+===============================================================================

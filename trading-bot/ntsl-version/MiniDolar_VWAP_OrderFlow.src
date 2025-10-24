@@ -1,0 +1,471 @@
+{*******************************************************************************
+  ROBÔ DE TRADING - MINI DÓLAR (WDO)
+
+  Estratégia: VWAP + Order Flow
+  Autor: Prof. Rodolfo Barriviera
+  Data: 24/10/2025
+  Versão: 1.0 NTSL
+
+  DESCRIÇÃO:
+  Robô automatizado para mini dólar usando VWAP (diário e semanal) combinado
+  com análise de fluxo de ordens para identificar entradas de alta probabilidade.
+
+  LÓGICA:
+  - LONG: Preço próximo ao VWAP + Fluxo comprador + Book desequilibrado
+  - SHORT: Preço próximo ao VWAP + Fluxo vendedor + Book desequilibrado
+  - Saídas: Stop Loss, Take Profit ou reversão de fluxo
+
+  IMPORTANTE: SEMPRE TESTE EM SIMULAÇÃO ANTES DE USAR EM CONTA REAL!
+*******************************************************************************}
+
+{$IFDEF Audit}
+var
+  AuditStr: String;
+{$ENDIF}
+
+//==============================================================================
+// PARÂMETROS DE CONFIGURAÇÃO (INPUTS)
+//==============================================================================
+
+Input
+  // Parâmetros de Risco
+  StopLossPoints     : Integer(50);      // Stop Loss em pontos
+  TakeProfitPoints   : Integer(100);     // Take Profit em pontos
+  MaxContracts       : Integer(1);       // Tamanho da posição (contratos)
+
+  // Parâmetros da Estratégia - VWAP
+  VWAPDeviationPct   : Float(0.05);      // Desvio % permitido do VWAP (0.05 = 0.05%)
+
+  // Parâmetros de Fluxo de Ordens
+  DeltaThreshold     : Integer(20);      // Delta mínimo % para entrada (20 = 20%)
+  BookImbalanceThreshold : Integer(15);  // Desequilíbrio mínimo do book %
+  FlowWindowSize     : Integer(100);     // Janela de análise de fluxo (ticks)
+  ClusterDominance   : Float(0.60);      // Dominância mínima do cluster (60%)
+
+  // Configurações Gerais
+  EnableLongTrades   : Boolean(True);    // Habilita trades LONG
+  EnableShortTrades  : Boolean(True);    // Habilita trades SHORT
+  EnableFlowExit     : Boolean(True);    // Sai na reversão de fluxo
+
+  // Horários de Operação (formato HHMM)
+  StartTime          : Integer(0900);    // Hora de início
+  EndTime            : Integer(1730);    // Hora de encerramento
+  StopNewTradesTime  : Integer(1715);    // Hora de parar novas entradas
+
+  // Perfis Rápidos (descomente o desejado)
+  // CONSERVADOR: VWAPDeviationPct=0.03, DeltaThreshold=25, StopLoss=40, TakeProfit=80
+  // MODERADO (padrão): VWAPDeviationPct=0.05, DeltaThreshold=20, StopLoss=50, TakeProfit=100
+  // AGRESSIVO: VWAPDeviationPct=0.08, DeltaThreshold=15, StopLoss=70, TakeProfit=140
+
+//==============================================================================
+// VARIÁVEIS GLOBAIS
+//==============================================================================
+
+Var
+  // VWAP
+  VWAPDaily          : Float;
+  VWAPWeekly         : Float;
+  DailyPV            : Float;    // Price * Volume acumulado diário
+  DailyVolume        : Float;    // Volume acumulado diário
+  WeeklyPV           : Float;    // Price * Volume acumulado semanal
+  WeeklyVolume       : Float;    // Volume acumulado semanal
+
+  // Controle de tempo
+  LastDate           : Integer;
+  LastWeek           : Integer;
+  CurrentTime        : Integer;
+
+  // Fluxo de Ordens
+  BuyVolume          : Float;    // Volume de compra na janela
+  SellVolume         : Float;    // Volume de venda na janela
+  Delta              : Float;    // Delta de volume
+  DeltaPct           : Float;    // Delta em percentual
+  BookImbalance      : Float;    // Desequilíbrio do book
+
+  // Arrays para janela deslizante de fluxo
+  FlowVolumes        : Array[0..200] of Float;
+  FlowAggressors     : Array[0..200] of Integer;  // 1=Buy, -1=Sell
+  FlowIndex          : Integer;
+
+  // Controle de Posição
+  InPosition         : Boolean;
+  PositionType       : Integer;  // 1=Long, -1=Short, 0=Flat
+  EntryPrice         : Float;
+  StopPrice          : Float;
+  TargetPrice        : Float;
+
+  // Sinais
+  LongSignal         : Boolean;
+  ShortSignal        : Boolean;
+  ExitSignal         : Boolean;
+
+  // Book de Ofertas
+  BidVolume1         : Float;    // Volume no melhor bid
+  AskVolume1         : Float;    // Volume no melhor ask
+  BidVolume2         : Float;
+  AskVolume2         : Float;
+  BidVolume3         : Float;
+  AskVolume3         : Float;
+  TotalBidVolume     : Float;
+  TotalAskVolume     : Float;
+
+  // Auxiliares
+  PriceVsVWAP        : Float;
+  IsInsideTime       : Boolean;
+  CanEnterNew        : Boolean;
+  FlowSignal         : String;
+
+  // Contadores
+  TradesCount        : Integer;
+
+
+//==============================================================================
+// FUNÇÃO PRINCIPAL - BEGIN
+//==============================================================================
+
+Begin
+
+  //----------------------------------------------------------------------------
+  // 1. INICIALIZAÇÃO E CONTROLE DE TEMPO
+  //----------------------------------------------------------------------------
+
+  // Reset diário do VWAP
+  If Date <> LastDate Then Begin
+    DailyPV := 0;
+    DailyVolume := 0;
+    LastDate := Date;
+  End;
+
+  // Reset semanal do VWAP (segunda-feira)
+  If DayOfWeek = 1 Then Begin
+    If LastWeek <> Date Then Begin
+      WeeklyPV := 0;
+      WeeklyVolume := 0;
+      LastWeek := Date;
+    End;
+  End;
+
+  // Verifica horário de operação
+  CurrentTime := Time;
+  IsInsideTime := (CurrentTime >= StartTime) And (CurrentTime <= EndTime);
+  CanEnterNew := (CurrentTime >= StartTime) And (CurrentTime <= StopNewTradesTime);
+
+
+  //----------------------------------------------------------------------------
+  // 2. CÁLCULO DO VWAP DIÁRIO E SEMANAL
+  //----------------------------------------------------------------------------
+
+  // Atualiza VWAP diário
+  DailyPV := DailyPV + (Close * Volume);
+  DailyVolume := DailyVolume + Volume;
+
+  If DailyVolume > 0 Then
+    VWAPDaily := DailyPV / DailyVolume
+  Else
+    VWAPDaily := Close;
+
+  // Atualiza VWAP semanal
+  WeeklyPV := WeeklyPV + (Close * Volume);
+  WeeklyVolume := WeeklyVolume + Volume;
+
+  If WeeklyVolume > 0 Then
+    VWAPWeekly := WeeklyPV / WeeklyVolume
+  Else
+    VWAPWeekly := Close;
+
+
+  //----------------------------------------------------------------------------
+  // 3. ANÁLISE DE FLUXO DE ORDENS
+  //----------------------------------------------------------------------------
+
+  // Adiciona tick atual ao array de fluxo
+  FlowIndex := FlowIndex + 1;
+  If FlowIndex > FlowWindowSize Then
+    FlowIndex := 0;
+
+  FlowVolumes[FlowIndex] := Volume;
+
+  // Identifica agressor (simplificado)
+  // Se fechou no ask = compra agressiva (1)
+  // Se fechou no bid = venda agressiva (-1)
+  If Close >= Ask Then
+    FlowAggressors[FlowIndex] := 1      // Compra agressiva
+  Else If Close <= Bid Then
+    FlowAggressors[FlowIndex] := -1     // Venda agressiva
+  Else
+    FlowAggressors[FlowIndex] := 0;     // Neutro
+
+  // Calcula delta de volume na janela
+  BuyVolume := 0;
+  SellVolume := 0;
+
+  Var i: Integer;
+  For i := 0 To FlowWindowSize Do Begin
+    If FlowAggressors[i] = 1 Then
+      BuyVolume := BuyVolume + FlowVolumes[i]
+    Else If FlowAggressors[i] = -1 Then
+      SellVolume := SellVolume + FlowVolumes[i];
+  End;
+
+  // Calcula delta e percentual
+  Delta := BuyVolume - SellVolume;
+
+  If (BuyVolume + SellVolume) > 0 Then
+    DeltaPct := (Delta / (BuyVolume + SellVolume)) * 100
+  Else
+    DeltaPct := 0;
+
+
+  //----------------------------------------------------------------------------
+  // 4. ANÁLISE DO BOOK DE OFERTAS
+  //----------------------------------------------------------------------------
+
+  // Obtém volumes do book (simplificado - usa BidVolume e AskVolume do Profit)
+  BidVolume1 := BidVolume;  // Volume total de compra
+  AskVolume1 := AskVolume;  // Volume total de venda
+
+  TotalBidVolume := BidVolume1;
+  TotalAskVolume := AskVolume1;
+
+  // Calcula desequilíbrio do book
+  If (TotalBidVolume + TotalAskVolume) > 0 Then
+    BookImbalance := ((TotalBidVolume - TotalAskVolume) / (TotalBidVolume + TotalAskVolume)) * 100
+  Else
+    BookImbalance := 0;
+
+
+  //----------------------------------------------------------------------------
+  // 5. IDENTIFICAÇÃO DE SINAIS DE ENTRADA
+  //----------------------------------------------------------------------------
+
+  // Calcula desvio do preço em relação ao VWAP diário
+  If VWAPDaily > 0 Then
+    PriceVsVWAP := ((Close - VWAPDaily) / VWAPDaily) * 100
+  Else
+    PriceVsVWAP := 0;
+
+  // Reseta sinais
+  LongSignal := False;
+  ShortSignal := False;
+
+
+  // === SINAL DE ENTRADA LONG ===
+  If EnableLongTrades And CanEnterNew And (Not InPosition) Then Begin
+
+    // Condição 1: Preço próximo ao VWAP diário
+    If (PriceVsVWAP >= -VWAPDeviationPct) And (PriceVsVWAP <= VWAPDeviationPct) Then Begin
+
+      // Condição 2: Delta positivo forte (fluxo comprador)
+      If DeltaPct > DeltaThreshold Then Begin
+
+        // Condição 3: Book desequilibrado para compra
+        If BookImbalance > BookImbalanceThreshold Then Begin
+
+          // Condição 4: Preço alinhado com VWAP semanal (não muito abaixo)
+          If (VWAPWeekly = 0) Or (Close >= VWAPWeekly * 0.98) Then Begin
+
+            LongSignal := True;
+            FlowSignal := 'BULLISH';
+
+          End;
+        End;
+      End;
+    End;
+  End;
+
+
+  // === SINAL DE ENTRADA SHORT ===
+  If EnableShortTrades And CanEnterNew And (Not InPosition) Then Begin
+
+    // Condição 1: Preço próximo ao VWAP diário
+    If (PriceVsVWAP >= -VWAPDeviationPct) And (PriceVsVWAP <= VWAPDeviationPct) Then Begin
+
+      // Condição 2: Delta negativo forte (fluxo vendedor)
+      If DeltaPct < -DeltaThreshold Then Begin
+
+        // Condição 3: Book desequilibrado para venda
+        If BookImbalance < -BookImbalanceThreshold Then Begin
+
+          // Condição 4: Preço alinhado com VWAP semanal (não muito acima)
+          If (VWAPWeekly = 0) Or (Close <= VWAPWeekly * 1.02) Then Begin
+
+            ShortSignal := True;
+            FlowSignal := 'BEARISH';
+
+          End;
+        End;
+      End;
+    End;
+  End;
+
+
+  //----------------------------------------------------------------------------
+  // 6. GERENCIAMENTO DE POSIÇÃO E SAÍDAS
+  //----------------------------------------------------------------------------
+
+  ExitSignal := False;
+
+  If InPosition Then Begin
+
+    // === SAÍDA POR STOP LOSS ===
+    If PositionType = 1 Then Begin  // Long
+      If Close <= StopPrice Then
+        ExitSignal := True;
+
+      // Saída por Take Profit
+      If Close >= TargetPrice Then
+        ExitSignal := True;
+
+      // Saída por reversão de fluxo
+      If EnableFlowExit And (DeltaPct < -DeltaThreshold) Then
+        ExitSignal := True;
+    End;
+
+    If PositionType = -1 Then Begin  // Short
+      If Close >= StopPrice Then
+        ExitSignal := True;
+
+      // Saída por Take Profit
+      If Close <= TargetPrice Then
+        ExitSignal := True;
+
+      // Saída por reversão de fluxo
+      If EnableFlowExit And (DeltaPct > DeltaThreshold) Then
+        ExitSignal := True;
+    End;
+
+    // Saída por fim do horário
+    If CurrentTime >= EndTime Then
+      ExitSignal := True;
+
+  End;
+
+
+  //----------------------------------------------------------------------------
+  // 7. EXECUÇÃO DE ORDENS
+  //----------------------------------------------------------------------------
+
+  // === ENTRADA LONG ===
+  If LongSignal Then Begin
+
+    BuyToOpen(MaxContracts, 'ENTRADA LONG - VWAP+Flow');
+
+    InPosition := True;
+    PositionType := 1;
+    EntryPrice := Close;
+    StopPrice := Close - StopLossPoints;
+    TargetPrice := Close + TakeProfitPoints;
+    TradesCount := TradesCount + 1;
+
+    {$IFDEF Audit}
+    AuditStr := 'LONG | Entry=' + FloatToStr(EntryPrice) +
+                ' | Stop=' + FloatToStr(StopPrice) +
+                ' | Target=' + FloatToStr(TargetPrice) +
+                ' | DeltaPct=' + FloatToStr(DeltaPct) +
+                ' | BookImb=' + FloatToStr(BookImbalance);
+    WriteToFile('RoboLog.txt', AuditStr);
+    {$ENDIF}
+
+  End;
+
+
+  // === ENTRADA SHORT ===
+  If ShortSignal Then Begin
+
+    SellToOpen(MaxContracts, 'ENTRADA SHORT - VWAP+Flow');
+
+    InPosition := True;
+    PositionType := -1;
+    EntryPrice := Close;
+    StopPrice := Close + StopLossPoints;
+    TargetPrice := Close - TakeProfitPoints;
+    TradesCount := TradesCount + 1;
+
+    {$IFDEF Audit}
+    AuditStr := 'SHORT | Entry=' + FloatToStr(EntryPrice) +
+                ' | Stop=' + FloatToStr(StopPrice) +
+                ' | Target=' + FloatToStr(TargetPrice) +
+                ' | DeltaPct=' + FloatToStr(DeltaPct) +
+                ' | BookImb=' + FloatToStr(BookImbalance);
+    WriteToFile('RoboLog.txt', AuditStr);
+    {$ENDIF}
+
+  End;
+
+
+  // === SAÍDA DE POSIÇÃO ===
+  If ExitSignal Then Begin
+
+    If PositionType = 1 Then
+      SellToCover(MaxContracts, 'SAIDA LONG')
+    Else If PositionType = -1 Then
+      BuyToCover(MaxContracts, 'SAIDA SHORT');
+
+    InPosition := False;
+    PositionType := 0;
+
+    {$IFDEF Audit}
+    AuditStr := 'EXIT | Price=' + FloatToStr(Close) +
+                ' | P/L=' + FloatToStr(Close - EntryPrice);
+    WriteToFile('RoboLog.txt', AuditStr);
+    {$ENDIF}
+
+  End;
+
+
+  //----------------------------------------------------------------------------
+  // 8. PLOTAGEM DE INDICADORES NO GRÁFICO
+  //----------------------------------------------------------------------------
+
+  // Plota VWAPs
+  PlotNumeric('VWAP Diário', VWAPDaily, 0, clBlue, 2);
+  PlotNumeric('VWAP Semanal', VWAPWeekly, 0, clGreen, 2);
+
+  // Plota bandas de referência (opcional)
+  PlotNumeric('VWAP +0.5%', VWAPDaily * 1.005, 0, clSilver, 1);
+  PlotNumeric('VWAP -0.5%', VWAPDaily * 0.995, 0, clSilver, 1);
+
+  // Plota sinais em painel separado
+  PlotNumeric('Delta %', DeltaPct, 1, clYellow, 2);
+  PlotNumeric('Book Imb %', BookImbalance, 1, clOrange, 2);
+
+  // Linhas de threshold
+  PlotNumeric('Delta+', DeltaThreshold, 1, clLime, 1);
+  PlotNumeric('Delta-', -DeltaThreshold, 1, clRed, 1);
+
+  // Indicador de posição
+  If InPosition Then Begin
+    If PositionType = 1 Then
+      PlotNumeric('Posição', 50, 2, clGreen, 4)
+    Else
+      PlotNumeric('Posição', -50, 2, clRed, 4);
+  End Else
+    PlotNumeric('Posição', 0, 2, clGray, 2);
+
+
+End;
+
+{*******************************************************************************
+  FIM DO ROBÔ
+
+  INSTRUÇÕES DE USO:
+
+  1. Abra o Profit Pro
+  2. Vá em "Automação" > "Editor de Estratégias"
+  3. Crie nova estratégia e cole este código
+  4. Compile (F9)
+  5. Configure os parâmetros conforme seu perfil
+  6. TESTE EM SIMULAÇÃO primeiro!
+  7. Aplique no gráfico do mini dólar (WDO)
+
+  IMPORTANTE:
+  - Sempre teste em conta de simulação antes de usar real
+  - Monitore o robô constantemente nas primeiras operações
+  - Ajuste os parâmetros conforme sua tolerância ao risco
+  - O mercado pode mudar, revise a estratégia regularmente
+
+  SUPORTE:
+  - Documentação NTSL: https://ajuda.nelogica.com.br
+  - Manual do Profit Pro
+
+*******************************************************************************}

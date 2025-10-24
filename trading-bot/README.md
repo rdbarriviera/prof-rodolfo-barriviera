@@ -4,6 +4,27 @@ Robô automatizado para operações no mini dólar brasileiro utilizando estrat�
 
 ---
 
+## 🎯 Duas Versões Disponíveis
+
+Este projeto oferece **duas implementações** da mesma estratégia:
+
+### 📁 Versão Python (Esta pasta)
+- Implementação completa em Python
+- Flexível e customizável
+- Requer integração via DLL/API externa
+- Ideal para quem quer controle total do código
+
+### 🚀 Versão NTSL (Recomendada) - [**CLIQUE AQUI**](./ntsl-version/)
+- Implementação em NTSL (linguagem nativa do Profit Pro)
+- **Plug & Play** - Copiar e colar no Profit
+- Execução nativa sem necessidade de DLL externa
+- Backtest integrado
+- **👉 SE VOCÊ TEM O MÓDULO DE AUTOMAÇÃO DO PROFIT, USE ESTA VERSÃO!**
+
+**📖 Documentação da versão NTSL:** [ntsl-version/README_NTSL.md](./ntsl-version/README_NTSL.md)
+
+---
+
 ## 📋 Índice
 
 - [Sobre](#sobre)
