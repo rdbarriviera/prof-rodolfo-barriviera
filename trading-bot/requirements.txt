@@ -1,0 +1,17 @@
+# Dependências do Robô de Trading - Mini Dólar
+
+# Análise de dados
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Logging e configuração
+python-dotenv>=1.0.0
+
+# Data e hora
+python-dateutil>=2.8.2
+
+# API/DLL da Nelogica (quando disponível)
+# nelogica-sdk  # Descomentar quando tiver acesso ao SDK oficial
+
+# Notificações (opcional)
+# requests>=2.31.0  # Para notificações via webhook/Telegram
