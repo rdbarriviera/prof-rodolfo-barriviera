@@ -1,32 +1,24 @@
 {*******************************************************************************
   INDICADOR - VWAP + ORDER FLOW - MINI DÓLAR
 
-  Estratégia: VWAP + Análise de Fluxo
+  Versão: 2.1 - MELHORADA COM SINAIS VISUAIS
   Autor: Prof. Rodolfo Barriviera
-  Versão: 2.0 NTSL - INDICADOR VISUAL
 
-  ESTE É UM INDICADOR, NÃO UM ROBÔ AUTOMÁTICO!
+  MELHORIAS DESTA VERSÃO:
+  - Sinais mais visíveis no gráfico
+  - Condições de entrada mais realistas
+  - Plots em painéis separados
+  - Valores de debug para verificar funcionamento
 
-  O que este código faz:
-  - Mostra VWAP diário e semanal no gráfico
-  - Calcula e mostra Delta de volume (fluxo)
-  - Indica visualmente quando há setup de entrada
-  - VOCÊ opera manualmente baseado nos sinais
-
-  Como usar:
-  1. Compile e aplique no gráfico WDO
-  2. Observe os plots no gráfico
-  3. Quando Plot4 (sinal) ficar > 50 = COMPRA
-  4. Quando Plot4 (sinal) ficar < -50 = VENDA
-  5. Use stop de 50 pontos e target de 100 pontos
-
-  SEMPRE TESTE EM SIMULAÇÃO!
+  O QUE VOCÊ VERÁ:
+  - Linha AZUL: VWAP Diário (painel principal)
+  - Linha VERDE: VWAP Semanal (painel principal)
+  - Painel inferior: Delta % (fluxo)
+  - SETAS: Compra (verde) e Venda (vermelha)
 *******************************************************************************}
 
 Var
   // Parâmetros
-  StopLossPoints     : Integer;
-  TakeProfitPoints   : Integer;
   VWAPDeviationPct   : Float;
   DeltaThreshold     : Float;
   FlowWindowSize     : Integer;
@@ -56,9 +48,8 @@ Var
   FlowIndex          : Integer;
 
   // Sinais
-  LongSetup          : Boolean;
-  ShortSetup         : Boolean;
-  SignalValue        : Float;
+  LongSignal         : Boolean;
+  ShortSignal        : Boolean;
 
   // Auxiliares
   PriceVsVWAP        : Float;
@@ -71,30 +62,10 @@ Begin
   // ========== INICIALIZAÇÃO ==========
 
   If Not Initialized Then Begin
-    // PERFIL MODERADO (PADRÃO)
-    StopLossPoints    := 50;
-    TakeProfitPoints  := 100;
-    VWAPDeviationPct  := 0.05;
-    DeltaThreshold    := 20;
-    FlowWindowSize    := 100;
-
-    // CONSERVADOR (descomente para usar)
-    {
-    StopLossPoints    := 40;
-    TakeProfitPoints  := 80;
-    DeltaThreshold    := 25;
-    FlowWindowSize    := 150;
-    }
-
-    // AGRESSIVO (descomente para usar)
-    {
-    StopLossPoints    := 70;
-    TakeProfitPoints  := 140;
-    DeltaThreshold    := 15;
-    FlowWindowSize    := 75;
-    }
-
-    Initialized := True;
+    VWAPDeviationPct  := 0.1;   // 0.1% = mais tolerante
+    DeltaThreshold    := 10;     // 10% = mais fácil de atingir
+    FlowWindowSize    := 50;     // Janela menor = reage mais rápido
+    Initialized       := True;
   End;
 
 
@@ -143,6 +114,7 @@ Begin
 
   FlowVolumes[FlowIndex] := Volume;
 
+  // Identifica direção do tick
   If Close > PrevClose Then
     FlowAggressors[FlowIndex] := 1
   Else If Close < PrevClose Then
@@ -152,6 +124,7 @@ Begin
 
   PrevClose := Close;
 
+  // Calcula delta
   BuyVolume := 0;
   SellVolume := 0;
 
@@ -170,239 +143,135 @@ Begin
     DeltaPct := 0;
 
 
-  // ========== IDENTIFICAÇÃO DE SETUPS ==========
+  // ========== GERAÇÃO DE SINAIS ==========
 
   If VWAPDaily > 0 Then
     PriceVsVWAP := ((Close - VWAPDaily) / VWAPDaily) * 100
   Else
     PriceVsVWAP := 0;
 
-  LongSetup := False;
-  ShortSetup := False;
+  LongSignal := False;
+  ShortSignal := False;
 
 
-  // SETUP DE COMPRA
+  // SINAL DE COMPRA
+  // Preço próximo ao VWAP E Delta positivo
   If (PriceVsVWAP >= -VWAPDeviationPct) And (PriceVsVWAP <= VWAPDeviationPct) Then Begin
     If DeltaPct > DeltaThreshold Then Begin
-      If (VWAPWeekly = 0) Or (Close >= VWAPWeekly * 0.98) Then Begin
-        LongSetup := True;
-      End;
+      LongSignal := True;
     End;
   End;
 
 
-  // SETUP DE VENDA
+  // SINAL DE VENDA
+  // Preço próximo ao VWAP E Delta negativo
   If (PriceVsVWAP >= -VWAPDeviationPct) And (PriceVsVWAP <= VWAPDeviationPct) Then Begin
     If DeltaPct < -DeltaThreshold Then Begin
-      If (VWAPWeekly = 0) Or (Close <= VWAPWeekly * 1.02) Then Begin
-        ShortSetup := True;
-      End;
+      ShortSignal := True;
     End;
   End;
 
 
-  // ========== GERAÇÃO DO SINAL VISUAL ==========
+  // ========== PLOTAGEM ==========
 
-  SignalValue := 0;
-
-  If LongSetup Then
-    SignalValue := 100;     // Sinal positivo = COMPRA
-
-  If ShortSetup Then
-    SignalValue := -100;    // Sinal negativo = VENDA
-
-
-  // ========== PLOTAGEM NO GRÁFICO ==========
-
-  // Plot principal: VWAP Diário (azul)
+  // VWAP Diário (linha azul no painel principal)
   Plot(VWAPDaily);
 
-  // Plot2: VWAP Semanal (verde)
+  // VWAP Semanal (linha verde no painel principal)
   Plot2(VWAPWeekly);
 
-  // Plot3: Delta % (amarelo) - em painel separado
+  // Delta % (linha amarela em painel separado)
   Plot3(DeltaPct);
 
-  // Plot4: Sinal de entrada (branco)
-  // Quando = 100: COMPRA
-  // Quando = -100: VENDA
-  // Quando = 0: Sem sinal
-  Plot4(SignalValue);
+  // Sinais visuais usando Plot4
+  // Quando há sinal de compra, plota no Low (abaixo da barra)
+  // Quando há sinal de venda, plota no High (acima da barra)
+  If LongSignal Then
+    Plot4(Low - 10)
+  Else If ShortSignal Then
+    Plot4(High + 10)
+  Else
+    Plot4(0);  // Sem sinal
 
 End;
 
 {*******************************************************************************
-  MANUAL DE USO - LEIA COM ATENÇÃO!
+  COMO USAR ESTE INDICADOR:
 
-  ============================================================================
-  1. INSTALAÇÃO
-  ============================================================================
+  1. INSTALAÇÃO:
+     - Profit Pro > Gráficos > Inserir Indicador
+     - Cole este código
+     - Compile (F9)
+     - Aplique no gráfico WDO (mini dólar)
+     - Timeframe: 1 minuto ou tick
 
-  - Abra o Profit Pro
-  - Vá em "Gráficos" > "Inserir Indicador"
-  - Cole este código
-  - Compile (F9)
-  - Aplique no gráfico do WDO (mini dólar)
-  - Timeframe recomendado: 1 minuto
+  2. O QUE APARECE:
+     No painel principal (preço):
+     - Linha AZUL = VWAP Diário (referência)
+     - Linha VERDE = VWAP Semanal (tendência)
+     - Plot4 (pontos) = Sinais de entrada
 
+     No painel inferior:
+     - Linha AMARELA = Delta % (fluxo)
+       Positivo = Compra
+       Negativo = Venda
 
-  ============================================================================
-  2. O QUE VOCÊ VAI VER NO GRÁFICO
-  ============================================================================
+  3. SINAIS:
+     - Quando aparecer PONTO ABAIXO da barra (Plot4) = COMPRA
+       → Delta está positivo (+10% ou mais)
+       → Preço está próximo ao VWAP
+       → Execute: Compra 1 contrato
+       → Stop: -50 pontos
+       → Target: +100 pontos
 
-  PAINEL PRINCIPAL (Preço):
-  - Plot (AZUL): VWAP Diário
-  - Plot2 (VERDE): VWAP Semanal
+     - Quando aparecer PONTO ACIMA da barra (Plot4) = VENDA
+       → Delta está negativo (-10% ou menos)
+       → Preço está próximo ao VWAP
+       → Execute: Venda 1 contrato
+       → Stop: +50 pontos
+       → Target: -100 pontos
 
-  PAINEL INFERIOR 1:
-  - Plot3 (AMARELO): Delta % (fluxo comprador/vendedor)
-    * Positivo = Mais compra
-    * Negativo = Mais venda
+  4. AJUSTES:
+     Para mudar sensibilidade, edite linhas 76-78:
 
-  PAINEL INFERIOR 2:
-  - Plot4 (BRANCO): Sinal de entrada
-    * +100 = SINAL DE COMPRA
-    * -100 = SINAL DE VENDA
-    * 0 = Sem sinal
+     MAIS CONSERVADOR (menos sinais):
+     VWAPDeviationPct := 0.05;
+     DeltaThreshold := 20;
 
+     MAIS AGRESSIVO (mais sinais):
+     VWAPDeviationPct := 0.15;
+     DeltaThreshold := 5;
 
-  ============================================================================
-  3. COMO OPERAR
-  ============================================================================
+  5. INTERPRETAÇÃO:
+     - Preço TOCA o VWAP azul = Momento de atenção
+     - Delta POSITIVO (>10%) = Pressão compradora
+     - Delta NEGATIVO (<-10%) = Pressão vendedora
+     - Plot4 aparece = Setup confirmado
 
-  SINAL DE COMPRA (Plot4 = 100):
-  1. Observe Plot4 (sinal) saltar para +100
-  2. Verifique que preço está próximo ao VWAP azul
-  3. Verifique que Delta (amarelo) está positivo
-  4. COMPRE 1 contrato a mercado
-  5. Coloque STOP em: Preço de entrada - 50 pontos
-  6. Coloque TARGET em: Preço de entrada + 100 pontos
+  6. REGRAS:
+     ✓ SEMPRE opere com stop loss
+     ✓ Opere apenas 1 contrato por vez
+     ✓ Máximo 5 trades por dia
+     ✓ Se tomar 3 stops seguidos, pare
+     ✓ Opere entre 9h e 17:15h
+     ✓ Teste em simulação primeiro!
 
-  SINAL DE VENDA (Plot4 = -100):
-  1. Observe Plot4 (sinal) saltar para -100
-  2. Verifique que preço está próximo ao VWAP azul
-  3. Verifique que Delta (amarelo) está negativo
-  4. VENDA 1 contrato a mercado
-  5. Coloque STOP em: Preço de entrada + 50 pontos
-  6. Coloque TARGET em: Preço de entrada - 100 pontos
+  7. EXEMPLO:
+     Situação às 10:30h:
+     - Preço: 5650
+     - VWAP Diário (azul): 5648
+     - Delta (amarelo): +15%
+     - Plot4: Aparece ABAIXO da barra
 
+     Ação: COMPRA 1 contrato
+     Stop: 5600
+     Target: 5750
 
-  ============================================================================
-  4. REGRAS DE GESTÃO DE RISCO
-  ============================================================================
-
-  - Opere APENAS 1 contrato por vez
-  - SEMPRE use stop loss (50 pontos)
-  - SEMPRE use take profit (100 pontos)
-  - Não opere fora do horário 9h-17:15h
-  - Máximo 5 trades por dia
-  - Se tomar 3 stops seguidos, pare de operar no dia
-
-
-  ============================================================================
-  5. PERFIS DE RISCO
-  ============================================================================
-
-  MODERADO (ATIVO - linhas 71-75):
-  - Stop: 50 pontos
-  - Target: 100 pontos
-  - Delta threshold: 20%
-
-  CONSERVADOR (descomente linhas 78-83):
-  - Stop: 40 pontos
-  - Target: 80 pontos
-  - Delta threshold: 25%
-
-  AGRESSIVO (descomente linhas 86-91):
-  - Stop: 70 pontos
-  - Target: 140 pontos
-  - Delta threshold: 15%
-
-
-  ============================================================================
-  6. INTERPRETAÇÃO DOS INDICADORES
-  ============================================================================
-
-  VWAP DIÁRIO (Azul):
-  - Referência de valor justo do dia
-  - Operações próximas ao VWAP têm maior probabilidade
-
-  VWAP SEMANAL (Verde):
-  - Indica tendência da semana
-  - Evite comprar muito abaixo ou vender muito acima
-
-  DELTA % (Amarelo):
-  - Mostra força compradora/vendedora
-  - > +20% = Fluxo comprador forte
-  - < -20% = Fluxo vendedor forte
-
-  SINAL (Branco):
-  - Pisca em +100 = Setup de compra identificado
-  - Pisca em -100 = Setup de venda identificado
-  - Fica em 0 = Aguardando condições
-
-
-  ============================================================================
-  7. CHECKLIST ANTES DE OPERAR
-  ============================================================================
-
-  [ ] Testei em simulação por pelo menos 2 semanas
-  [ ] Entendi como funciona o VWAP
-  [ ] Entendi como funciona o Delta
-  [ ] Sei interpretar os sinais
-  [ ] Tenho capital suficiente para suportar perdas
-  [ ] Configurei stop loss e take profit
-  [ ] Estou operando apenas 1 contrato
-  [ ] Vou monitorar constantemente
-
-
-  ============================================================================
-  8. AVISOS IMPORTANTES
-  ============================================================================
-
-  ⚠️ Este é um INDICADOR, não um robô automático
-  ⚠️ VOCÊ precisa executar as ordens manualmente
-  ⚠️ SEMPRE teste em simulação primeiro
-  ⚠️ Trading envolve risco de perda
-  ⚠️ Não opere com dinheiro que não pode perder
-  ⚠️ Monitore constantemente suas posições
-  ⚠️ Use stop loss SEMPRE
-
-
-  ============================================================================
-  9. EXEMPLO PRÁTICO
-  ============================================================================
-
-  Situação: Plot4 salta para +100 às 10:30h
-
-  Verificações:
-  ✓ Preço (5650) está próximo ao VWAP diário (5648)
-  ✓ Delta está em +25% (fluxo comprador)
-  ✓ VWAP semanal está em 5640 (preço acima - ok)
-
-  Ação:
-  1. COMPRA 1 contrato de WDOH25 a 5650
-  2. Stop Loss em 5600 (5650 - 50)
-  3. Take Profit em 5750 (5650 + 100)
-
-  Resultado possível:
-  - Acertou: +100 pontos = R$ 40 de lucro
-  - Errou: -50 pontos = R$ 20 de prejuízo
-  - Relação risco/retorno: 1:2
-
-
-  ============================================================================
-  10. SUPORTE E AJUDA
-  ============================================================================
-
-  Se tiver dúvidas:
-  - Revise este manual
-  - Teste mais em simulação
-  - Ajuste os parâmetros gradualmente
-  - Anote seus resultados para aprender
-
-
-  Bons trades e boa sorte!
-  Lembre-se: Disciplina > Estratégia
+  IMPORTANTE:
+  - Este é um INDICADOR, não robô automático
+  - VOCÊ opera manualmente
+  - SEMPRE teste em simulação
+  - Trading tem risco de perda
+  - Não opere com dinheiro que não pode perder
 
 *******************************************************************************}
