@@ -1,28 +1,22 @@
 {*******************************************************************************
-  INDICADOR - VWAP + ORDER FLOW - MINI DÓLAR
+  INDICADOR VWAP + ORDER FLOW - MINI DÓLAR
+  Versão 2.2 - SINAIS SIMPLIFICADOS
 
-  Versão: 2.1 - MELHORADA COM SINAIS VISUAIS
   Autor: Prof. Rodolfo Barriviera
 
-  MELHORIAS DESTA VERSÃO:
-  - Sinais mais visíveis no gráfico
-  - Condições de entrada mais realistas
-  - Plots em painéis separados
-  - Valores de debug para verificar funcionamento
+  ESTA VERSÃO É SIMPLIFICADA PARA MOSTRAR OS SINAIS CLARAMENTE!
 
-  O QUE VOCÊ VERÁ:
-  - Linha AZUL: VWAP Diário (painel principal)
-  - Linha VERDE: VWAP Semanal (painel principal)
-  - Painel inferior: Delta % (fluxo)
-  - SETAS: Compra (verde) e Venda (vermelha)
+  O que você verá:
+  - Plot (azul): VWAP Diário
+  - Plot2 (verde): VWAP Semanal
+  - Plot3 (amarelo): Delta % (em painel separado)
+  - Plot4 (branco): FORÇA DO SINAL
+    * Positivo (+50 a +100) = Compra
+    * Negativo (-50 a -100) = Venda
+    * Perto de 0 = Sem sinal claro
 *******************************************************************************}
 
 Var
-  // Parâmetros
-  VWAPDeviationPct   : Float;
-  DeltaThreshold     : Float;
-  FlowWindowSize     : Integer;
-
   // VWAP
   VWAPDaily          : Float;
   VWAPWeekly         : Float;
@@ -43,31 +37,19 @@ Var
   DeltaPct           : Float;
 
   // Arrays
-  FlowVolumes        : Array[0..200] of Float;
-  FlowAggressors     : Array[0..200] of Integer;
+  FlowVolumes        : Array[0..100] of Float;
+  FlowAggressors     : Array[0..100] of Integer;
   FlowIndex          : Integer;
 
-  // Sinais
-  LongSignal         : Boolean;
-  ShortSignal        : Boolean;
+  // Sinal
+  SignalStrength     : Float;
+  PriceVsVWAP        : Float;
 
   // Auxiliares
-  PriceVsVWAP        : Float;
   PrevClose          : Float;
   i                  : Integer;
-  Initialized        : Boolean;
 
 Begin
-
-  // ========== INICIALIZAÇÃO ==========
-
-  If Not Initialized Then Begin
-    VWAPDeviationPct  := 0.1;   // 0.1% = mais tolerante
-    DeltaThreshold    := 10;     // 10% = mais fácil de atingir
-    FlowWindowSize    := 50;     // Janela menor = reage mais rápido
-    Initialized       := True;
-  End;
-
 
   // ========== RESET DIÁRIO/SEMANAL ==========
 
@@ -106,15 +88,15 @@ Begin
     VWAPWeekly := Close;
 
 
-  // ========== ANÁLISE DE FLUXO ==========
+  // ========== ANÁLISE DE FLUXO (SIMPLIFICADO) ==========
 
   FlowIndex := FlowIndex + 1;
-  If FlowIndex > FlowWindowSize Then
+  If FlowIndex > 50 Then
     FlowIndex := 0;
 
   FlowVolumes[FlowIndex] := Volume;
 
-  // Identifica direção do tick
+  // Identifica direção
   If Close > PrevClose Then
     FlowAggressors[FlowIndex] := 1
   Else If Close < PrevClose Then
@@ -128,7 +110,7 @@ Begin
   BuyVolume := 0;
   SellVolume := 0;
 
-  For i := 0 To FlowWindowSize Do Begin
+  For i := 0 To 50 Do Begin
     If FlowAggressors[i] = 1 Then
       BuyVolume := BuyVolume + FlowVolumes[i]
     Else If FlowAggressors[i] = -1 Then
@@ -143,135 +125,195 @@ Begin
     DeltaPct := 0;
 
 
-  // ========== GERAÇÃO DE SINAIS ==========
+  // ========== CÁLCULO DO SINAL ==========
 
+  // Quanto o preço está longe do VWAP (em %)
   If VWAPDaily > 0 Then
     PriceVsVWAP := ((Close - VWAPDaily) / VWAPDaily) * 100
   Else
     PriceVsVWAP := 0;
 
-  LongSignal := False;
-  ShortSignal := False;
+  // FORÇA DO SINAL = Combinação de Delta e proximidade ao VWAP
+  SignalStrength := 0;
 
-
-  // SINAL DE COMPRA
-  // Preço próximo ao VWAP E Delta positivo
-  If (PriceVsVWAP >= -VWAPDeviationPct) And (PriceVsVWAP <= VWAPDeviationPct) Then Begin
-    If DeltaPct > DeltaThreshold Then Begin
-      LongSignal := True;
-    End;
+  // Se Delta é positivo (compra) E preço próximo ao VWAP
+  If DeltaPct > 0 Then Begin
+    // Quanto maior o delta, mais forte o sinal
+    // Quanto mais próximo do VWAP, mais forte o sinal
+    If (PriceVsVWAP >= -0.2) And (PriceVsVWAP <= 0.2) Then
+      SignalStrength := DeltaPct  // Sinal de COMPRA
+    Else
+      SignalStrength := DeltaPct / 2;  // Sinal fraco
   End;
 
-
-  // SINAL DE VENDA
-  // Preço próximo ao VWAP E Delta negativo
-  If (PriceVsVWAP >= -VWAPDeviationPct) And (PriceVsVWAP <= VWAPDeviationPct) Then Begin
-    If DeltaPct < -DeltaThreshold Then Begin
-      ShortSignal := True;
-    End;
+  // Se Delta é negativo (venda) E preço próximo ao VWAP
+  If DeltaPct < 0 Then Begin
+    If (PriceVsVWAP >= -0.2) And (PriceVsVWAP <= 0.2) Then
+      SignalStrength := DeltaPct  // Sinal de VENDA
+    Else
+      SignalStrength := DeltaPct / 2;  // Sinal fraco
   End;
 
 
   // ========== PLOTAGEM ==========
 
-  // VWAP Diário (linha azul no painel principal)
+  // VWAP Diário (azul)
   Plot(VWAPDaily);
 
-  // VWAP Semanal (linha verde no painel principal)
+  // VWAP Semanal (verde)
   Plot2(VWAPWeekly);
 
-  // Delta % (linha amarela em painel separado)
+  // Delta % (amarelo) - painel separado
   Plot3(DeltaPct);
 
-  // Sinais visuais usando Plot4
-  // Quando há sinal de compra, plota no Low (abaixo da barra)
-  // Quando há sinal de venda, plota no High (acima da barra)
-  If LongSignal Then
-    Plot4(Low - 10)
-  Else If ShortSignal Then
-    Plot4(High + 10)
-  Else
-    Plot4(0);  // Sem sinal
+  // Força do Sinal (branco) - painel separado
+  // Positivo = Setup de COMPRA
+  // Negativo = Setup de VENDA
+  // Quanto maior (em módulo), mais forte o sinal
+  Plot4(SignalStrength);
 
 End;
 
 {*******************************************************************************
-  COMO USAR ESTE INDICADOR:
+  COMO INTERPRETAR O GRÁFICO:
 
-  1. INSTALAÇÃO:
-     - Profit Pro > Gráficos > Inserir Indicador
-     - Cole este código
-     - Compile (F9)
-     - Aplique no gráfico WDO (mini dólar)
-     - Timeframe: 1 minuto ou tick
+  ============================================================================
+  PAINÉIS
+  ============================================================================
 
-  2. O QUE APARECE:
-     No painel principal (preço):
-     - Linha AZUL = VWAP Diário (referência)
-     - Linha VERDE = VWAP Semanal (tendência)
-     - Plot4 (pontos) = Sinais de entrada
+  PAINEL 1 (Preço):
+  - Linha AZUL = VWAP Diário
+  - Linha VERDE = VWAP Semanal
+  - Barras = Preço do WDO
 
-     No painel inferior:
-     - Linha AMARELA = Delta % (fluxo)
-       Positivo = Compra
-       Negativo = Venda
+  PAINEL 2 (Delta %):
+  - Linha AMARELA = Delta de Volume
+    * Positivo (+) = Mais compras que vendas
+    * Negativo (-) = Mais vendas que compras
+    * Quanto maior (em módulo), mais forte o fluxo
 
-  3. SINAIS:
-     - Quando aparecer PONTO ABAIXO da barra (Plot4) = COMPRA
-       → Delta está positivo (+10% ou mais)
-       → Preço está próximo ao VWAP
-       → Execute: Compra 1 contrato
-       → Stop: -50 pontos
-       → Target: +100 pontos
+  PAINEL 3 (Força do Sinal):
+  - Linha BRANCA = Força do Setup
+    * Positivo (+) = Setup de COMPRA
+    * Negativo (-) = Setup de VENDA
+    * Quanto maior (em módulo), melhor o setup
 
-     - Quando aparecer PONTO ACIMA da barra (Plot4) = VENDA
-       → Delta está negativo (-10% ou menos)
-       → Preço está próximo ao VWAP
-       → Execute: Venda 1 contrato
-       → Stop: +50 pontos
-       → Target: -100 pontos
 
-  4. AJUSTES:
-     Para mudar sensibilidade, edite linhas 76-78:
+  ============================================================================
+  COMO OPERAR
+  ============================================================================
 
-     MAIS CONSERVADOR (menos sinais):
-     VWAPDeviationPct := 0.05;
-     DeltaThreshold := 20;
+  SETUP DE COMPRA:
+  1. Observe PAINEL 3 (Força do Sinal) ficar POSITIVO (>10)
+  2. Confirme que PAINEL 2 (Delta) está POSITIVO
+  3. Confirme que Preço está PRÓXIMO ao VWAP Azul
+  4. COMPRE 1 contrato
+  5. Stop: -50 pontos
+  6. Target: +100 pontos
 
-     MAIS AGRESSIVO (mais sinais):
-     VWAPDeviationPct := 0.15;
-     DeltaThreshold := 5;
+  SETUP DE VENDA:
+  1. Observe PAINEL 3 (Força do Sinal) ficar NEGATIVO (<-10)
+  2. Confirme que PAINEL 2 (Delta) está NEGATIVO
+  3. Confirme que Preço está PRÓXIMO ao VWAP Azul
+  4. VENDA 1 contrato
+  5. Stop: +50 pontos
+  6. Target: -100 pontos
 
-  5. INTERPRETAÇÃO:
-     - Preço TOCA o VWAP azul = Momento de atenção
-     - Delta POSITIVO (>10%) = Pressão compradora
-     - Delta NEGATIVO (<-10%) = Pressão vendedora
-     - Plot4 aparece = Setup confirmado
 
-  6. REGRAS:
-     ✓ SEMPRE opere com stop loss
-     ✓ Opere apenas 1 contrato por vez
-     ✓ Máximo 5 trades por dia
-     ✓ Se tomar 3 stops seguidos, pare
-     ✓ Opere entre 9h e 17:15h
-     ✓ Teste em simulação primeiro!
+  ============================================================================
+  INTERPRETAÇÃO DETALHADA
+  ============================================================================
 
-  7. EXEMPLO:
-     Situação às 10:30h:
-     - Preço: 5650
-     - VWAP Diário (azul): 5648
-     - Delta (amarelo): +15%
-     - Plot4: Aparece ABAIXO da barra
+  PAINEL 3 (Força do Sinal) - O MAIS IMPORTANTE:
 
-     Ação: COMPRA 1 contrato
-     Stop: 5600
-     Target: 5750
+  Valor entre +50 a +100:
+  → Setup FORTE de COMPRA
+  → Delta muito positivo
+  → Preço no VWAP
+  → CONSIDERE COMPRAR
 
-  IMPORTANTE:
+  Valor entre +10 a +50:
+  → Setup MODERADO de COMPRA
+  → Delta positivo
+  → Preço próximo ao VWAP
+  → PODE COMPRAR
+
+  Valor entre -10 a +10:
+  → SEM SINAL CLARO
+  → Aguarde
+
+  Valor entre -10 a -50:
+  → Setup MODERADO de VENDA
+  → Delta negativo
+  → Preço próximo ao VWAP
+  → PODE VENDER
+
+  Valor entre -50 a -100:
+  → Setup FORTE de VENDA
+  → Delta muito negativo
+  → Preço no VWAP
+  → CONSIDERE VENDER
+
+
+  ============================================================================
+  EXEMPLO PRÁTICO
+  ============================================================================
+
+  Situação às 14:30h:
+
+  PAINEL 1: Preço = 5650 | VWAP Azul = 5648
+  PAINEL 2: Delta = +25%
+  PAINEL 3: Força = +20
+
+  Interpretação:
+  ✓ Preço está próximo ao VWAP (5650 vs 5648)
+  ✓ Delta positivo (+25%) = Fluxo comprador
+  ✓ Força do Sinal = +20 = Setup MODERADO de compra
+
+  Ação: COMPRA 1 contrato a 5650
+  Stop: 5600 (-50)
+  Target: 5750 (+100)
+
+
+  ============================================================================
+  AJUSTES
+  ============================================================================
+
+  Este indicador NÃO tem parâmetros editáveis para manter simples.
+
+  Se quiser ajustar:
+  - Linha 129: Mude 0.2 para outro valor (proximidade ao VWAP)
+    * 0.1 = Mais restrito (apenas muito perto do VWAP)
+    * 0.5 = Mais permissivo (aceita preços mais longe)
+
+  - Linha 97: Mude 50 para outro valor (janela de fluxo)
+    * 30 = Mais rápido, mais sinais
+    * 100 = Mais lento, sinais mais estáveis
+
+
+  ============================================================================
+  CHECKLIST
+  ============================================================================
+
+  [ ] Vejo 3 painéis no gráfico
+  [ ] PAINEL 1 tem linhas azul e verde (VWAPs)
+  [ ] PAINEL 2 tem linha amarela oscilando (Delta)
+  [ ] PAINEL 3 tem linha branca oscilando (Força do Sinal)
+  [ ] Entendi que positivo = compra, negativo = venda
+  [ ] Vou operar apenas quando Força > 10 ou < -10
+  [ ] Vou usar stop loss SEMPRE
+  [ ] Vou testar em simulação primeiro
+
+
+  ============================================================================
+  IMPORTANTE
+  ============================================================================
+
   - Este é um INDICADOR, não robô automático
-  - VOCÊ opera manualmente
-  - SEMPRE teste em simulação
+  - VOCÊ decide quando operar
+  - SEMPRE use stop loss
+  - Teste em simulação primeiro
   - Trading tem risco de perda
-  - Não opere com dinheiro que não pode perder
+  - Opere apenas com capital que pode perder
 
 *******************************************************************************}
